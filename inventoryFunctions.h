@@ -79,6 +79,28 @@ void add_item()
 	
 }
 
+/*gives an order of item(uid) from inventory and updates the quantity in the inventory after the order
+returns 1 for successful order
+returns -1 if the quantity ordered is more than available stock*/
+int give_order(char *uid,int quantity)
+{
+	int Quantity=0;
+	if(search_item(uid)==1)
+	{
+		Quantity=get_quantity(uid);
+	}
+	
+	if(Quantity<quantity)
+	{
+		return -1;
+	}
+	else
+	{
+		edit_item_quantity(uid,Quantity-quantity);
+		return 1;
+	}
+}
+
 void view_items()
 {
 	struct item t;
@@ -96,6 +118,25 @@ void view_items()
 	}	
 	printf("--------------------------------------------------- \n\n");
 	
+}
+
+int get_quantity(char *uid)
+{
+	struct item t;
+	FILE *file= fopen("inventory", "rb");
+	if(file != NULL)
+	{
+		while(fread(&t, sizeof(struct item), 1, file))
+		{
+			if(strcmp(t.UID,uid)==0)
+    		{
+    		fclose(file);
+    		return t.quantity;
+			}
+		}
+		fclose(file);
+	}
+	return -1;
 }
 
 void edit_item_quantity(char *uid,int quantity)
