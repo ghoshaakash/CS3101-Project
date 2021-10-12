@@ -98,6 +98,25 @@ void view_items()
 	
 }
 
+int get_quantity(char *uid)
+{
+	struct item t;
+	FILE *file= fopen("inventory", "rb");
+	if(file != NULL)
+	{
+		while(fread(&t, sizeof(struct item), 1, file))
+		{
+			if(strcmp(t.UID,uid)==0)
+    		{
+    		fclose(file);
+    		return t.quantity;
+			}
+		}
+		fclose(file);
+	}
+	return -1;
+}
+
 void edit_item_quantity(char *uid,int quantity)
 {
 	struct item t;
