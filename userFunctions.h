@@ -60,19 +60,20 @@ void add_item()
 void view_items()
 {
 	struct item t;
-	
-	printf("--------------------------------------------------- \n");
+	int i=0;
+	//printf("--------------------------------------------------- \n");
+	printf("%-14s%-32s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE");
 	FILE * file= fopen("inventory", "rb");
 	if(file != NULL) 
 	{
-    while(fread(&t, sizeof(struct item), 1, file))
-    {
-    	printf("item name : %s\nitem UID : %s\nquantity : %d\nprice : Rs %.2f\n\n",t.name,t.UID,t.quantity,t.price);
-	}
+    		while(fread(&t, sizeof(struct item), 1, file))
+    		{
+    			printf("%-14d%-32s%-15s%-10d%-17.2f\n",++i,t.name,t.UID,t.quantity,t.price);
+		}
     
-    fclose(file);
+    		fclose(file);
 	}	
-	printf("--------------------------------------------------- \n\n");
+	//printf("--------------------------------------------------- \n\n");
 	
 }
 
