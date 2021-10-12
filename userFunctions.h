@@ -30,130 +30,9 @@ struct order
 
 
 //fucntions
-void initialize_item(struct item *t)
-{
-	printf("Enter item name :\n");
-	scanf("%s",t->name);
-	printf("Enter item UID :\n");
-	scanf("%s",t->UID);
-	printf("Enter item quantity :\n");
-	scanf("%d",&(t->quantity));
-	printf("Enter item price (in rupees) :\n");
-	scanf("%f",&(t->price));
-	printf("\n\n");
-}
-
-void add_item()
-{
-	struct item t;
-	initialize_item(&t);
-	
-	FILE * file= fopen("inventory", "ab");
-	if (file != NULL) 
-	{
-    fwrite(&t, sizeof(struct item), 1, file);
-    fclose(file);
-	}	
-	
-}
-
-void view_items()
-{
-	struct item t;
-	
-	printf("--------------------------------------------------- \n");
-	FILE * file= fopen("inventory", "rb");
-	if(file != NULL) 
-	{
-    while(fread(&t, sizeof(struct item), 1, file))
-    {
-    	printf("item name : %s\nitem UID : %s\nquantity : %d\nprice : Rs %.2f\n\n",t.name,t.UID,t.quantity,t.price);
-	}
-    
-    fclose(file);
-	}	
-	printf("--------------------------------------------------- \n\n");
-	
-}
-
-void edit_item_quantity(char *uid,int quantity)
-{
-	struct item t;
-	
-	FILE * file1= fopen("inventory", "rb");
-	FILE * file2= fopen("inventory_tmp", "wb");
-	if(file1 != NULL && file2 != NULL) 
-	{
-    while(fread(&t, sizeof(struct item), 1, file1))
-    {
-    	if(strcmp(t.UID,uid)!=0)
-    	{
-    		fwrite(&t, sizeof(struct item), 1, file2);
-		}
-		else
-		{
-			t.quantity=quantity;
-			fwrite(&t, sizeof(struct item), 1, file2);
-		}
-	}
-    
-    fclose(file1);
-    fclose(file2);
-    
-    remove("inventory");
-    rename("inventory_tmp","inventory");
-	}	
-	
-}
-
-void delete_item(char *uid)
-{
-	struct item t;
-	
-	FILE * file1= fopen("inventory", "rb");
-	FILE * file2= fopen("inventory_tmp", "wb");
-	if(file1 != NULL && file2 != NULL) 
-	{
-    while(fread(&t, sizeof(struct item), 1, file1))
-    {
-    	if(strcmp(t.UID,uid)!=0)
-    	{
-    		fwrite(&t, sizeof(struct item), 1, file2);
-		}
-	}
-    
-    fclose(file1);
-    fclose(file2);
-    
-    remove("inventory");
-    rename("inventory_tmp","inventory");
-	}	
-}
 
 
-int search_item(char *uid)
-{
-	struct item t;
-	FILE *file= fopen("inventory", "rb");
-	if(file != NULL)
-	{
-		while(fread(&t, sizeof(struct item), 1, file))
-		{
-			if(strcmp(t.UID,uid)==0)
-    		{
-    		fclose(file);
-    		return 1;
-			}
-		}
-		fclose(file);
-		return 0;
-	}
-	return -1;
-}
-
-
-
-int CreateUser()
+int CreateUser()//creates a user. returns 1 if successful 0 otherwise
 {   //calculating max number of user
     long x=0;
     struct people p;
@@ -168,28 +47,90 @@ int CreateUser()
         fclose(fptr);
         return(0);
     }
-    if(ftell(fptr)<sizeof(people))//checking if there is atleast 1 entry
+    if(ftell(fptr)<sizeof(p))//checking if there is atleast 1 entry
     {
         p.UID=1000000000; 
     }
     else
     {
-    if (fseek(fptr, -sizeof(people), SEEK_CUR) != 0)
+    if (fseek(fptr, -sizeof(p), SEEK_CUR) != 0)
     {
         fclose(fptr);
         return(0);
     }
     struct people lastAppln;
-    fread(&lastAppln, sizeof(people), 1, fptr);
+    fread(&lastAppln, sizeof(p), 1, fptr);
     p.UID=lastAppln.UID+1;
     }
     printf("Enter User Name: ");
     fgets(p.name, sizeof(p.name), stdin);
     printf("Enter User Password: ");
     fgets(p.password, sizeof(p.password), stdin);
+    printf("Enter Role: ");
+    char role[50]={'\0'};
+    fgets(role, sizeof(role), stdin);
+    if(strcmp(role,"Admin")==0)
+    {
+        puts("Admin role creastion requires existing admin credentials. Please input existing admin UID/password");
+        puts("Enter Admin UID: ");
+        long UID;
+        scanf("%lu", &UID);
+        if(AuthUser(UID)==1)
+        {
+            puts("Authorised Admin login succesful");
+            strcpy(p.role,"Admin");
+        }
+        else
+        {
+            puts("Admin login unscuccessful");
+            return(0);
+        }
+    }
     strcpy(p.role,"User");
-    fwrite(&p, sizeof(people), 1, fptr);
+    fwrite(&p, sizeof(p), 1, fptr);
     puts("User creation succesful. UID is:%lu",p.UID);
     fclose(fptr);
     return(1);
 }
+
+int AuthUser(long UID)//searches for uid and checks password. returns 1 if authorized admin 2 if authorised user 0 otherwise 
+{
+    struct people i;
+    FILE *fptr;
+    if ((fptr = fopen("people.bin","r")) == NULL)
+    {
+    printf("Error! opening file");
+    return(0);
+    }
+    while (fread(&i, sizeof(i), 1, fptr)!=sizeof(i))
+    {
+        if(i.UID==UID)
+        {
+            char password[50]={'\0'};
+            printf("Enter User Password: ");
+            fgets(password, sizeof(password), stdin);
+            if(strcmp(password, i.password))
+            {
+                puts("Auth successful");
+                if(strcmp(i.role,"Admin"))
+                {
+                    return(1);
+                }
+                else
+                {
+                    return(2);
+                }
+            }
+            else
+            {
+                puts("Password incorrect");
+                return(0);
+            }
+
+        }
+    }
+    puts("UID not found");
+    return(0);    
+}
+
+
