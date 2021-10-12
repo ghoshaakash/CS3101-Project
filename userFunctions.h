@@ -12,24 +12,9 @@ struct people
     char password[50];
 };
 
-struct item{
-	char name[50];
-	char UID[20];
-	int quantity;
-	float price;
-};
-
-struct order
-{
-    long OrderID;
-    char UID;
-    int delivery_type;
-    int date;
-    int slot;
-};
-
 
 //fucntions
+
 
 
 int CreateUser()//creates a user. returns 1 if successful 0 otherwise
