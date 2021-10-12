@@ -30,6 +30,28 @@ struct order
 
 
 //fucntions
+void view_items()
+{
+	struct item t;
+	int i=0;
+	//printf("--------------------------------------------------- \n");
+	printf("%-14s%-32s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE");
+	FILE * file= fopen("inventory", "rb");
+	if(file != NULL) 
+	{
+    		while(fread(&t, sizeof(struct item), 1, file))
+    		{
+    			printf("%-14d%-32s%-15s%-10d%-17.2f\n",++i,t.name,t.UID,t.quantity,t.price);
+		}
+    
+    		fclose(file);
+	}	
+	//printf("--------------------------------------------------- \n\n");
+	
+}
+
+
+
 void initialize_item(struct item *t)
 {
 	printf("Enter item name :\n");
