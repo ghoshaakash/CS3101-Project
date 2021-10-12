@@ -73,7 +73,7 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
     }
     strcpy(p.role,"User");
     fwrite(&p, sizeof(p), 1, fptr);
-    puts("User creation succesful. UID is:%lu",p.UID);
+    printf("User creation succesful. UID is:%lu",p.UID);
     fclose(fptr);
     return(1);
 }
