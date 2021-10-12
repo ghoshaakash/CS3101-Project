@@ -3,6 +3,8 @@
 #include <string.h>
 #include <math.h>
 
+#include"userFunctions.h"
+
 struct people
 {
     char name[50];
@@ -11,7 +13,7 @@ struct people
     char password[50];
 };
 
-struct inventory
+struct items
 {
     char name[50];
     long UID;
