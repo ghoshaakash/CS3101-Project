@@ -52,12 +52,38 @@ void view_items()
 
 
 
+void add_UID(struct item *t)
+{
+	struct item t1;
+	FILE * file= fopen("inventory", "rb");
+	if (file != NULL) 
+	{
+    
+    	fseek(file, 0, SEEK_END);
+    	fseek(file,-sizeof(struct item),SEEK_CUR);
+    	fread(&t1, sizeof(struct item), 1, file);
+    		
+    	char uid[30];
+    		
+    	sprintf(uid,"ITM%d",atoi((t1.UID)+3)+1);
+    	strcpy(t->UID,uid);
+	}
+	else
+	{
+			
+			strcpy(t->UID,"ITM10000001");
+	}
+	fclose(file);
+}	
+	
+
 void initialize_item(struct item *t)
 {
 	printf("Enter item name :\n");
-	scanf("%s",t->name);
-	printf("Enter item UID :\n");
-	scanf("%s",t->UID);
+	gets(t->name);
+	add_UID(t);
+	//printf("Enter item UID :\n");
+	//scanf("%s",t->UID);
 	printf("Enter item quantity :\n");
 	scanf("%d",&(t->quantity));
 	printf("Enter item price (in rupees) :\n");
