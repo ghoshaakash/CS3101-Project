@@ -13,13 +13,6 @@ struct people
     char password[50];
 };
 
-struct items
-{
-    char name[50];
-    long UID;
-    int quantity;
-    float price;
-};
 
 struct order
 {
