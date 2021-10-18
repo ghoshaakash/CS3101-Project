@@ -5,20 +5,6 @@
 
 #include"userFunctions.h"
 
-struct people
+void main()
 {
-    char name[50];
-    char role[6];
-    long UID;
-    char password[50];
-};
-
-
-struct order
-{
-    long OrderID;
-    char UID;
-    int delivery_type;
-    int date;
-    int slot;
-};
+}
