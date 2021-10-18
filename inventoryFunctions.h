@@ -30,6 +30,11 @@ struct order
 
 
 //fucntions
+
+/*
+prints the entire the inventory on the screen
+returns : None
+*/
 void view_items()
 {
 	struct item t;
@@ -49,8 +54,6 @@ void view_items()
 	//printf("--------------------------------------------------- \n\n");
 	
 }
-
-
 
 void add_UID(struct item *t)
 {
@@ -76,7 +79,6 @@ void add_UID(struct item *t)
 	fclose(file);
 }	
 	
-
 void initialize_item(struct item *t)
 {
 	printf("Enter item name :\n");
@@ -91,6 +93,11 @@ void initialize_item(struct item *t)
 	printf("\n\n");
 }
 
+
+/*
+Adds a new item to the inventory 
+returns : None
+*/
 void add_item()
 {
 	struct item t;
@@ -127,25 +134,10 @@ int give_order(char *uid,int quantity)
 	}
 }
 
-void view_items()
-{
-	struct item t;
-	
-	printf("--------------------------------------------------- \n");
-	FILE * file= fopen("inventory", "rb");
-	if(file != NULL) 
-	{
-    while(fread(&t, sizeof(struct item), 1, file))
-    {
-    	printf("item name : %s\nitem UID : %s\nquantity : %d\nprice : Rs %.2f\n\n",t.name,t.UID,t.quantity,t.price);
-	}
-    
-    fclose(file);
-	}	
-	printf("--------------------------------------------------- \n\n");
-	
-}
 
+/*
+takes the UID of the item and returns the quantity of the item present in stock
+*/
 int get_quantity(char *uid)
 {
 	struct item t;
@@ -165,6 +157,10 @@ int get_quantity(char *uid)
 	return -1;
 }
 
+
+/*
+takes the UID of the item and its quantity and updates stock with this quantity 
+*/
 void edit_item_quantity(char *uid,int quantity)
 {
 	struct item t;
@@ -195,6 +191,9 @@ void edit_item_quantity(char *uid,int quantity)
 	
 }
 
+/*
+Takes the item UID and deletes it from the stock 
+*/
 void delete_item(char *uid)
 {
 	struct item t;
@@ -219,7 +218,9 @@ void delete_item(char *uid)
 	}	
 }
 
-
+/*
+Takes the UID of an item and returns 1 if the item is present in the inventory, else returns -1
+*/
 int search_item(char *uid)
 {
 	struct item t;
