@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <string.h>
 #include <math.h>
+#include<stdlib.h>
 
 //structures
 struct people
@@ -93,6 +94,29 @@ void initialize_item(struct item *t)
 	printf("\n\n");
 }
 
+
+/*
+takes in the uid of an item present in the inventory and returns the name of the item 
+*/
+char* get_item_name(char* uid)
+{	
+	struct item t;
+	FILE *file= fopen("inventory", "rb");
+	if(file != NULL)
+	{
+		while(fread(&t, sizeof(struct item), 1, file))
+		{
+			if(strcmp(t.UID,uid)==0)
+    		{
+    		fclose(file);
+    		return t.name;
+			}
+		}
+		fclose(file);
+	}
+	return "\0";
+	
+}
 
 /*
 Adds a new item to the inventory 
@@ -240,3 +264,4 @@ int search_item(char *uid)
 	}
 	return -1;
 }
+
