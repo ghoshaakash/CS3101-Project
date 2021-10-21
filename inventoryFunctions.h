@@ -41,7 +41,7 @@ void view_items()
 	struct item t;
 	int i=0;
 	//printf("--------------------------------------------------- \n");
-	printf("%-14s%-32s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE");
+	printf("%-14s%-32s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
 	FILE * file= fopen("inventory", "rb");
 	if(file != NULL) 
 	{
@@ -96,12 +96,12 @@ void initialize_item(struct item *t)
 
 
 /*
-takes in the uid of an item present in the inventory and returns the name of the item 
+takes in the uid of an item and the reference to a string and copies the name of that item to the string. 
+returns 1 if item present else returns 0.
 */
-char* get_item_name(char* uid)
+int get_item_name(char* uid,char* name)
 {	
 	struct item t;
-	char name[50];
 	FILE *file= fopen("inventory", "rb");
 	if(file != NULL)
 	{
@@ -111,12 +111,12 @@ char* get_item_name(char* uid)
     		{
     		fclose(file);
     		strcpy(name,t.name);
-    		return name;
+    		return 1;
 			}
 		}
 		fclose(file);
 	}
-	return "\0";
+	return 0;
 	
 }
 
@@ -245,7 +245,7 @@ void delete_item(char *uid)
 }
 
 /*
-Takes the UID of an item and returns 1 if the item is present in the inventory, else returns -1
+Takes the UID of an item and returns 1 if the item is present in the inventory, else returns 0
 */
 int search_item(char *uid)
 {
@@ -267,3 +267,26 @@ int search_item(char *uid)
 	return -1;
 }
 
+/*
+takes in the uid of an item and returns its price
+returns -1 if item not in inventory
+*/
+float get_price(char* uid)
+{
+	struct item t;
+	FILE *file= fopen("inventory", "rb");
+	if(file != NULL)
+	{
+		while(fread(&t, sizeof(struct item), 1, file))
+		{
+			if(strcmp(t.UID,uid)==0)
+    		{
+    		fclose(file);
+    		return t.price;
+			}
+		}
+		fclose(file);
+	}
+	return -1;
+	
+}
