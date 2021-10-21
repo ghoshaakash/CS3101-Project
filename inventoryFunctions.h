@@ -101,6 +101,7 @@ takes in the uid of an item present in the inventory and returns the name of the
 char* get_item_name(char* uid)
 {	
 	struct item t;
+	char name[50];
 	FILE *file= fopen("inventory", "rb");
 	if(file != NULL)
 	{
@@ -109,7 +110,8 @@ char* get_item_name(char* uid)
 			if(strcmp(t.UID,uid)==0)
     		{
     		fclose(file);
-    		return t.name;
+    		strcpy(name,t.name);
+    		return name;
 			}
 		}
 		fclose(file);
