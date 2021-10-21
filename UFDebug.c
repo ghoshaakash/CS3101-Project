@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "userFunctions.h"
+#include "inventoryFunctions.h"
 
 
 void main()
 {
- CreateUser() ;
-}
+ 
+ }
 
