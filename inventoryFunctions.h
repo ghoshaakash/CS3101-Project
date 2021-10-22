@@ -290,3 +290,33 @@ float get_price(char* uid)
 	return -1;
 	
 }
+
+
+/*
+takes in an array of uid of items and prints their details as present in the inventory
+*/
+void view_items_by_uid(char (*list)[20],int size)
+{
+	printf("%-14s%-32s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
+	
+	int i;
+	int j=0;
+
+	struct item t;
+	
+	FILE * file= fopen("inventory", "rb");
+	if(file != NULL) 
+	{
+    		while(fread(&t, sizeof(struct item), 1, file))
+    		{
+    			for(i=0;i<size;i++)
+    			{
+    				if(strcmp(t.UID,list[i])==0)
+    					printf("%-14d%-32s%-15s%-10d%-17.2f\n",++j,t.name,t.UID,t.quantity,t.price);
+				}
+    			
+		    }
+    
+    		fclose(file);
+	}	
+}

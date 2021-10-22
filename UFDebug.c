@@ -4,6 +4,10 @@
 
 void main()
 {
- printf("%f",get_price("ITM10000002"));
+
+char list[5][20]={"ITM10000002","ITM10000004","ITM10000003"};
+
+view_items_by_uid(list,3);
+
 }
 
