@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include "inventoryFunctions.h"
-
+#include "searchFunctions.h"
 
 void main()
 {
 
-char list[5][20]={"ITM10000002","ITM10000004","ITM10000003"};
-
-view_items_by_uid(list,3);
-
+char lower[20]="\0";
+char name[]="HeyN";
+lowercase(name,lower);
+printf("%s",lower);
 }
 
