@@ -159,7 +159,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
     else
     {
         fclose(fptr);
-        FILE* fptr = fopen("LatestScheduler.ord","wb+");
+        FILE* fptr = fopen("LatestScheduler.ord","wb");
         SYSTEMTIME t;
         GetLocalTime(&t);
         fseek(fptr,0,SEEK_SET);
@@ -210,7 +210,6 @@ void addorder(int slot)//Incements the slot in last order where order was placed
     fseek(fptr,0,SEEK_SET);
     fwrite(&s,1,sizeof(s),fptr);
     fclose(fptr);
-
 }
 
 

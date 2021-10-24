@@ -1,13 +1,11 @@
 #include <stdio.h>
-#include "inventoryFunctions.h"
-#include "searchFunctions.h"
+#include "OrderFunctions.h"
 
 void main()
 {
-
-char lower[20]="\0";
-char name[]="HeyN";
-lowercase(name,lower);
-printf("%s",lower);
+    while(1)
+    {
+        AssignSlots(100,69.00);
+    }
 }
 
