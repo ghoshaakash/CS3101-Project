@@ -5,6 +5,6 @@
 void main()
 {
   //view_items();
-  view_items_by_string("o l");
+  view_items_by_string("o l j k");
 }
 

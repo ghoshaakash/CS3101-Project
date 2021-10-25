@@ -370,7 +370,12 @@ void view_items_by_string(char *string)
 			{printf("%-14d%-32s%-15s%-10d%-17.2f\n",++j,t.name,t.UID,t.quantity,t.price);}
    			
 		}
-    
-    		fclose(file);
+    	
+    	if(j==0)
+    	{
+    		printf("\n\n\n\n\n--------------------Sorry, No items matched the search---------------------------\n\n\n\n\n");
+		}
+    	
+    	fclose(file);
 	}	
 }
