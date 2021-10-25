@@ -32,3 +32,35 @@ void lowercase(char upper[50],char* chr)
 		
 } 
 
+
+int checksubstring(char* str1,char* str2)//str 1 is parent, str2 is substring. Return 0 if not present, 1 if present
+{
+int len1 = strlen(str1);
+int len2= strlen(str2);
+if(len1<len2)
+	return 0;
+
+int i,j;
+int flag;
+for(i=0;i<=len1-len2;i++)//this loop checks if the substring is in the string
+{
+	flag=0;
+	for(j=0;j<len2;j++)
+	{
+		if(str1[i+j]==str2[j])
+		{
+			flag+=1;
+		}
+	}
+	if(flag==len2)
+
+	{
+		return 1;
+	}
+}
+
+return 0;
+}
+
+
+	
