@@ -15,7 +15,7 @@ struct people
 };
 
 struct item{
-	char name[50];
+	char name[500];
 	char UID[20];
 	int quantity;
 	float price;
