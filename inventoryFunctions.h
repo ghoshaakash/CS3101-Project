@@ -6,13 +6,13 @@
 #include "searchFunctions.h"
 
 //structures
-struct people
+/*struct people
 {
     char name[50];
     char role[6];
     long UID;
     char password[50];
-};
+};*/
 
 struct item{
 	char name[500];
