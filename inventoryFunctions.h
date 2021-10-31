@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include<stdlib.h>
+#include "searchFunctions.h"
 
 //structures
 struct people
@@ -14,7 +15,7 @@ struct people
 };
 
 struct item{
-	char name[50];
+	char name[500];
 	char UID[20];
 	int quantity;
 	float price;
@@ -41,13 +42,13 @@ void view_items()
 	struct item t;
 	int i=0;
 	//printf("--------------------------------------------------- \n");
-	printf("%-14s%-32s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
+	printf("%-14s%-50s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
 	FILE * file= fopen("inventory", "rb");
 	if(file != NULL) 
 	{
     		while(fread(&t, sizeof(struct item), 1, file))
     		{
-    			printf("%-14d%-32s%-15s%-10d%-17.2f\n",++i,t.name,t.UID,t.quantity,t.price);
+    			printf("%-14d%-50s%-15s%-10d%-17.2f\n",++i,t.name,t.UID,t.quantity,t.price);
 		}
     
     		fclose(file);
@@ -297,7 +298,7 @@ takes in an array of uid of items and prints their details as present in the inv
 */
 void view_items_by_uid(char (*list)[20],int size)
 {
-	printf("%-14s%-32s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
+	printf("%-14s%-50s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
 	
 	int i;
 	int j=0;
@@ -312,11 +313,69 @@ void view_items_by_uid(char (*list)[20],int size)
     			for(i=0;i<size;i++)
     			{
     				if(strcmp(t.UID,list[i])==0)
-    					printf("%-14d%-32s%-15s%-10d%-17.2f\n",++j,t.name,t.UID,t.quantity,t.price);
+    					printf("%-14d%-50s%-15s%-10d%-17.2f\n",++j,t.name,t.UID,t.quantity,t.price);
 				}
     			
 		    }
     
     		fclose(file);
+	}	
+}
+
+int search_function(char* super, char* sub)
+{
+	int flag=1;
+	char *token=NULL;
+   
+  	/* get the first token */
+   	token = strtok(sub," ");
+   
+  	/* walk through other tokens */
+	while( token != NULL )
+	{
+      			
+      	if(checksubstring(super,token)==0)
+      	{
+      	flag=0;
+		}
+    
+   		token = strtok(NULL," ");
+	}	
+	if(flag==1)
+	return 1;
+	return 0;
+}
+
+
+/*
+takes in a string and prints only those items on the screen whose name have the string in common
+*/
+void view_items_by_string(char *string)
+{
+	char new_string[100]="\0";
+	printf("%-14s%-50s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
+	
+	int i;
+	int j=0;
+	char item_name[100]="\0";
+	struct item t;
+	FILE * file= fopen("inventory", "rb");
+	if(file != NULL) 
+	{
+    	while(fread(&t, sizeof(struct item), 1, file))
+    	{
+    		strcpy(new_string,string);
+    		strcpy(item_name,t.name);
+    		if(search_function(item_name,new_string)==1)
+			{printf("%-14d%-50s%-15s%-10d%-17.2f\n",++j,t.name,t.UID,t.quantity,t.price);}
+   			
+		}
+    	
+    	if(j==0)
+    	{
+    		printf("\n\n\n\n\n-----------------------------Sorry, No items matched the search------------------------------------\n\n\n\n\n");
+		}
+    	
+    	fclose(file);
 	}	
 }

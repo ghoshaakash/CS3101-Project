@@ -1,11 +1,11 @@
 #include <stdio.h>
-#include "OrderFunctions.h"
+#include "inventoryFunctions.h"
+
 
 void main()
 {
-    while(1)
-    {
-        AssignSlots(100,69.00);
-    }
+	
+  view_items_by_string("WHITE HEART");
+  //printf("%d %f",get_quantity("ITM10000538"),get_price("ITM10000538"));
 }
 
