@@ -1,11 +1,10 @@
 #include <stdio.h>
-#include "inventoryFunctions.h"
+#include "userFunctions.h"
 
 
 void main()
 {
-	
-  view_items_by_string("WHITE HEART");
+  Initialize();
   //printf("%d %f",get_quantity("ITM10000538"),get_price("ITM10000538"));
 }
 
