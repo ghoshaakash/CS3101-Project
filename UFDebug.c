@@ -1,10 +1,12 @@
 #include <stdio.h>
-#include "userFunctions.h"
+#include "OrderFunctions.h"
 
 
 void main()
 {
-  Initialize();
-  //printf("%d %f",get_quantity("ITM10000538"),get_price("ITM10000538"));
+  while(1)
+  {
+    printf("%ld",AssignSlots(69,430.69));
+  }
 }
 

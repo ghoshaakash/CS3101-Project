@@ -13,6 +13,7 @@ struct scheduler//struct to store data in LatestScheduler.ord
     int m;
     int y;
     int slot[Slots];
+    long OrderID;
 };
 
 void nextDate(int *d,int *m,int *y)//changes date to next day
@@ -168,6 +169,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
         s.y=t.wYear;
         s.m=t.wMonth;
         s.d=t.wDay;
+        s.OrderID=10000;
         nextDate(&(s.d),&(s.m),&(s.y));
         for(int i=0;i<Slots;i++)
         {
@@ -194,26 +196,29 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 
 
 
-void LogOrder(long UID,int d,int m,int y,int slot,float Price)//Appends order to CSV file
+void LogOrder(long OID,long UID,int d,int m,int y,int slot,float Price)//Appends order to CSV file
 {
     FILE *fptr = fopen("Log.csv","a");
-   fprintf(fptr,"%ld,%d,%d,%d,%d,%f\n",UID,d,m,y,slot,Price);
+   fprintf(fptr,"%ld,%ld,%d,%d,%d,%d,%f\n",OID,UID,d,m,y,slot,Price);
    fclose(fptr);
 }
 
-void addorder(int slot)//Incements the slot in last order where order was placed
+long addorder(int slot)//Incements the slot in last order where order was placed and returns orderID
 {
     FILE* fptr = fopen("LatestScheduler.ord","rb+");
     struct scheduler s;
     fread(&s, sizeof(s), 1, fptr);
     s.slot[slot-1]=s.slot[slot-1]+1;
     fseek(fptr,0,SEEK_SET);
+    s.OrderID=s.OrderID+1;
+    long ord=s.OrderID;
     fwrite(&s,1,sizeof(s),fptr);
     fclose(fptr);
+    return ord;
 }
 
 
-void AssignSlots(long UID, float price)//Assigns slot and logs order
+long AssignSlots(long UID, float price)//Assigns slot and logs order, returns ORDER ID
 {
     int d=0,m=0,y=0;
     int flag=1;
@@ -231,10 +236,7 @@ void AssignSlots(long UID, float price)//Assigns slot and logs order
         }
         printf("Chosen slot is full/Bad input. Please input valid slot number again:");
     }
-    printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f\n",d,m,y,slot,price);
-    addorder(slot);
-    LogOrder(UID,d,m,y,slot,price);
+    long OID=addorder(slot);
+    printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\n",d,m,y,slot,price,OID);
+    LogOrder(OID,UID,d,m,y,slot,price);
 }
-
-
-
