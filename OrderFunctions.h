@@ -109,6 +109,9 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
             s.m=t.wMonth;
             s.d=t.wDay;
             nextDate(&s.d,&s.m,&s.y);
+            *d=s.d;
+            *m=s.m;
+            *y=s.y;
             for(int i=0;i<Slots;i++)
             {
                 s.slot[i]=0;
