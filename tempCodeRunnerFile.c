@@ -1,12 +1,12 @@
 #include<stdio.h>
-#include "inventoryFunctions.h"
-#include "OrderFunctions.h"
+
+#include "stack.h"
 #include "userFunctions.h"
 //The first page that will get displayed as soon as the program starts
 int welcome()
 {
     int n,a,b,d;
-    char c[100];
+    char c[100],e[100];
     long U;
 label://A pointer to return to the first page after the first choice or after logging out from the account 
 //The first choice to create an account or to login to an existing account
@@ -95,6 +95,26 @@ label2://A pointer to return to the point when an admin is logged in and the dis
             else if(b==0)
             {
                 goto label;
+            }
+        }
+        else if(a==2)
+        {
+label3://A pointer to return to the point when an user is logged in and the display page after logging in or before logging out
+//The second choice for the user
+            view_items();
+            printf("Please enter 1 to open the set of commands and 0 to logout from your account \n");
+            scanf("%d",&b);
+            if(b==0)
+            {
+                goto label;
+            }
+            else
+            {
+                d=Cart(U);
+                if(d==0)
+                {
+                    goto label3;
+                }
             }
         }
     }

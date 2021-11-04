@@ -194,7 +194,8 @@ int Cart(long PeopleUID)
 	int top_1=-1,top_2=-1, *p, *q;
 	p=&top_1;
 	q=&top_2;
-
+	int a,b,i;
+	char c,d, s[100];
 	int key;
 
 	while(1)
@@ -219,7 +220,16 @@ int Cart(long PeopleUID)
 					printf("%s","Enter search phrase :\n");
 					char searchPhrase[100]={'\0'};
 					scanf("%s",searchPhrase);
-					view_items_by_string(searchPhrase);//Niku convert it to upper case first before passing
+					a=strlen(searchPhrase);
+					for(i=0;i<=a;i++)
+					{
+						if(searchPhrase[i]>='a' && searchPhrase[i]<='z')
+						{
+							searchPhrase[i]=searchPhrase[i]-32;
+						}
+					}
+					view_items_by_string(searchPhrase);
+					break;
 			default: printf("Invalid operation!\n");
 		}
 	}
