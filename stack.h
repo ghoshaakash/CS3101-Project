@@ -1,3 +1,11 @@
+#include<stdio.h>
+#include"InventoryFunctions.h"
+#include"OrderFunctions.h"
+#include<String.h>
+
+
+
+
 /*
  * main.c
  *
@@ -153,10 +161,9 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 /*
 Prints bill and resets both top variables to -1. Takes string array, int array and pointers to their respective top variables, and a char variable (needed for the pop_string function) as input.
 */
-void print_bill(char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
+void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
 {
 	float total=0,amount;
-
 	printf("ITEM \t\t\t\t RATE \t\t QUANTITY \t\t AMOUNT\n");
 	printf("================================================================================\n");
 	while(*p!=-1)
@@ -175,10 +182,12 @@ void print_bill(char item_arr[50][20], int quantity_arr[50], int* p,int* q, char
 	}
 	printf("================================================================================\n");
 	printf("TOTAL = Rs. %.3f/-\n",total);
+	int OrderID=AssignSlots(PeopleUID,total);
+	
 }
 
-/* //For test run only. Ignore this part otherwise.
-int main()
+
+int Cart(long PeopleUID)
 {
 	char item_arr[50][20], top_string[20];
 	int quantity_arr[50];
@@ -191,7 +200,7 @@ int main()
 	while(1)
 	{
 		printf("Choose operation:\n");
-		printf("0 to add an item to the cart\n1 to view cart \n2 to remove an item \n3 to proceed to checkout\n");
+		printf("0 to add an item to the cart\n1 to view cart \n2 to remove an item \n3 to proceed to checkout\n4 to search items by string.\n");
 		printf("===========================================\n");
 		scanf("%d",&key);
 
@@ -203,13 +212,18 @@ int main()
 					break;
 			case 2: remove_from_cart(item_arr,quantity_arr,p,q, top_string);
 					break;
-			case 3: print_bill(item_arr,quantity_arr,p,q, top_string);
+			case 3: print_bill(PeopleUID,item_arr,quantity_arr,p,q, top_string);
 					exit(0);
+					break;
+			case 4: 
+					printf("%s","Enter search phrase :\n");
+					char searchPhrase[100]={'\0'};
+					scanf("%s",searchPhrase);
+					view_items_by_string(searchPhrase);//Niku convert it to upper case first before passing
 			default: printf("Invalid operation!\n");
 		}
 	}
 
 	return 0;
 }
-*/
 
