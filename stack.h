@@ -164,7 +164,7 @@ Prints bill and resets both top variables to -1. Takes string array, int array a
 void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
 {
 	float total=0,amount;
-	printf("ITEM \t\t\t\t RATE \t\t QUANTITY \t\t AMOUNT\n");
+	printf("%-50s %-8s%-12s%-8s\n","ITEM","RATE","QUANTITY","AMOUNT");
 	printf("================================================================================\n");
 	while(*p!=-1)
 	{
@@ -178,10 +178,10 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 
 		amount=get_price(UID)*quantity;
 		total+=amount;
-		printf("%-32s %-18.3f %-18d %.3f\n",name,get_price(UID),quantity,amount);
+		printf("%-50s%-6.2f    %-11d%-6.2f\n",name,get_price(UID),quantity,amount);
 	}
 	printf("================================================================================\n");
-	printf("TOTAL = Rs. %.3f/-\n",total);
+	printf("TOTAL = Rs. %.2f/-\n",total);
 	int OrderID=AssignSlots(PeopleUID,total);
 	
 }

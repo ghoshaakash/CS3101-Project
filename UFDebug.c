@@ -4,8 +4,5 @@
 
 void main()
 {
-  while(1)
-  {
-      Cart(10001);
-  }
+  Cart(10001);
 }
