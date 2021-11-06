@@ -5,7 +5,7 @@
 /*
 takes a string and a destination string, converts the string to its lowercase equivalent and copies it to the destination string
 */
-void lowercase(char upper[50],char* chr)
+/*void lowercase(char upper[50],char* chr)
 {
 	int i=0;    //for the loop
  	char l;
@@ -30,7 +30,7 @@ void lowercase(char upper[50],char* chr)
 				} 
 		}
 		
-} 
+}*/
 
 
 int checksubstring(char* str1,char* str2)//str 1 is parent, str2 is substring. Return 0 if not present, 1 if present

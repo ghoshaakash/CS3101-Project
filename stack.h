@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include"InventoryFunctions.h"
+#include"inventoryFunctions.h"
 #include"OrderFunctions.h"
 #include<String.h>
 
@@ -201,35 +201,39 @@ int Cart(long PeopleUID)
 	while(1)
 	{
 		printf("Choose operation:\n");
-		printf("0 to add an item to the cart\n1 to view cart \n2 to remove an item \n3 to proceed to checkout\n4 to search items by string.\n");
+		printf("0 to go to the previous set of commands \n1 to add an item to the cart \n2 to view cart \n3 to remove an item \n4 to proceed to checkout\n5 to search items by string.\n");
 		printf("===========================================\n");
 		scanf("%d",&key);
 
 	switch(key)
 		{
-			case 0: add_to_cart(item_arr,quantity_arr,p,q);
+			case 0:	exit(0);
 					break;
-			case 1: display(item_arr,quantity_arr,*p);
+			case 1: add_to_cart(item_arr,quantity_arr,p,q);
 					break;
-			case 2: remove_from_cart(item_arr,quantity_arr,p,q, top_string);
+			case 2: display(item_arr,quantity_arr,*p);
 					break;
-			case 3: print_bill(PeopleUID,item_arr,quantity_arr,p,q, top_string);
+			case 3: remove_from_cart(item_arr,quantity_arr,p,q, top_string);
+					break;
+			case 4: print_bill(PeopleUID,item_arr,quantity_arr,p,q, top_string);
 					exit(0);
 					break;
-			case 4: 
-					printf("%s","Enter search phrase :\n");
-					char searchPhrase[100]={'\0'};
-					scanf("%s",searchPhrase);
-					a=strlen(searchPhrase);
-					for(i=0;i<=a;i++)
+			case 5: 
 					{
-						if(searchPhrase[i]>='a' && searchPhrase[i]<='z')
+						printf("%s","Enter search phrase :\n");
+						char searchPhrase[100]={'\0'};
+						scanf("%s",searchPhrase);
+						a=strlen(searchPhrase);
+						for(i=0;i<=a;i++)
 						{
-							searchPhrase[i]=searchPhrase[i]-32;
+							if(searchPhrase[i]>='a' && searchPhrase[i]<='z')
+							{
+								searchPhrase[i]=searchPhrase[i]-32;
+							}	
 						}
+						view_items_by_string(searchPhrase);
+						break;
 					}
-					view_items_by_string(searchPhrase);
-					break;
 			default: printf("Invalid operation!\n");
 		}
 	}
