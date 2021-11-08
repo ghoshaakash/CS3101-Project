@@ -75,18 +75,18 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
     }
     printf("Enter User Name : ");
 
-    scanf("%s",p.name);
+    scanf(" %s",p.name);
     printf("Enter User Password: ");
-    scanf("%s",p.password);
+    scanf(" %s",p.password);
     printf("Enter User Role: ");
     char str[50]={'\0'};
-    scanf("%s",p.role);
+    scanf(" %s",p.role);
     if(!strcmp(p.role,"Admin"))
     {
         long int UID;
         printf("Existing Admin credentials needed for Adding Admins \n");
         printf("Enter Admin UID : ");
-        scanf("%ld", &UID);
+        scanf(" %ld", &UID);
         if(AuthUser(UID)==1)
         {
             strcpy(p.role,"Admin");
@@ -122,9 +122,9 @@ void Initialize()//To inititalzie first Admin
         p.UID=ftell(fptr)/sizeof(p)+10000;
     }
     printf("Enter User Name : ");
-    scanf("%s",p.name);
+    scanf(" %s",p.name);
     printf("Enter User Password: ");
-    scanf("%s",p.password);
+    scanf(" %s",p.password);
     strcpy(p.role,"Admin");
     fwrite(&p, sizeof(p), 1, fptr);
     fclose(fptr);

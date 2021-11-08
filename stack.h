@@ -93,7 +93,7 @@ void add_to_cart(char item_arr[50][20], int quantity_arr[50], int* p, int* q)
 {
 	char UID[20];
 	printf("Enter UID of the desired item:\n");
-	scanf("%s",UID);
+	scanf(" %s",UID);
 	if(!search_item(UID))
 	{
 		printf("Invalid UID! Please try again.\n");
@@ -101,7 +101,7 @@ void add_to_cart(char item_arr[50][20], int quantity_arr[50], int* p, int* q)
 	}
 	int quantity;
 	printf("Enter the desired quantity:\n");
-	scanf("%d",&quantity);
+	scanf(" %d",&quantity);
 
 	if(give_order(UID,quantity)==-1)
 		printf("The required quantity is not in stock.\n");
@@ -117,11 +117,11 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 {
 	char UID[20];
 	printf("Enter UID of item to be removed:\n");
-	scanf("%s",UID);
+	scanf(" %s",UID);
 
 	int quantity;
 	printf("Enter new quantity (enter 0 if item is to be removed):\n");
-	scanf("%d",&quantity);
+	scanf(" %d",&quantity);
 
 	int key,i;
 	for(i=*p;i>-1;i--)
@@ -216,7 +216,7 @@ int Cart(long PeopleUID)
 		printf("Choose operation:\n");
 		printf("0 to go to the previous set of commands \n1 to add an item to the cart \n2 to view cart \n3 to remove an item \n4 to proceed to checkout\n5 to search items by string.\n");
 		printf("===========================================\n");
-		scanf("%d",&key);
+		scanf(" %d",&key);
 
 	switch(key)
 		{
@@ -232,8 +232,8 @@ int Cart(long PeopleUID)
 					n=1;
 					break;
 			case 5: 
-						printf("%s","Enter search phrase :\n");
-						scanf("%s",searchPhrase);
+						printf("Enter search phrase :\n");
+						scanf(" %[^\n]",searchPhrase);
 						a=strlen(searchPhrase);
 						for(i=0;i<=a;i++)
 						{

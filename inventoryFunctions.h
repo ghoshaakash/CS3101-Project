@@ -89,9 +89,9 @@ void initialize_item(struct item *t)
 	//printf("Enter item UID :\n");
 	//scanf("%s",t->UID);
 	printf("Enter item quantity :\n");
-	scanf("%d",&(t->quantity));
+	scanf(" %d",&(t->quantity));
 	printf("Enter item price (in rupees) :\n");
-	scanf("%f",&(t->price));
+	scanf(" %f",&(t->price));
 	printf("\n\n");
 }
 

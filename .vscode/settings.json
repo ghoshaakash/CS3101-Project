@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "math.h": "c",
-        "orderfunctions.h": "c"
-    },
-    "cmake.configureOnOpen": false
-}
