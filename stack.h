@@ -79,7 +79,7 @@ void display(char item_arr[50][20], int quantity_arr[50], int top)
 	}
 	for(i=top;i>-1;i--)
 	{
-		char name[20];
+		char name[80];
 		get_item_name(item_arr[i],name);
 		printf("UID: %s \t Item name: %s \t Quantity: %d\n",item_arr[i],name,quantity_arr[i]);
 	}
@@ -164,8 +164,8 @@ Prints bill and resets both top variables to -1. Takes string array, int array a
 void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
 {
 	float total=0,amount;
-	printf("%-50s %-8s%-12s%-8s\n","ITEM","RATE","QUANTITY","AMOUNT");
-	printf("================================================================================\n");
+	printf("%-53s %-20s %-15s %-15s %s\n","ITEM","UID","RATE","QUANTITY","AMOUNT");
+	printf("=================================================================================================================\n");
 	while(*p!=-1)
 	{
 		char name[50];
@@ -178,12 +178,20 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 
 		amount=get_price(UID)*quantity;
 		total+=amount;
-		printf("%-50s%-6.2f    %-11d%-6.2f\n",name,get_price(UID),quantity,amount);
+		printf("%-73s %-20.2f %-11d %.2f\n",name,get_price(UID),quantity,amount);
 	}
-	printf("================================================================================\n");
+	printf("=================================================================================================================\n");
 	printf("TOTAL = Rs. %.2f/-\n",total);
-	int OrderID=AssignSlots(PeopleUID,total);
 	
+	if(total>0)
+	{
+		int OrderID=AssignSlots(PeopleUID,total);
+	}
+	else
+	{
+		printf("Invalid order!\n");
+	}
+
 }
 
 
@@ -235,6 +243,7 @@ int Cart(long PeopleUID)
 						break;
 					}
 			default: printf("Invalid operation!\n");
+					 break;
 		}
 	}
 
