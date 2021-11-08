@@ -1,8 +1,10 @@
 #include <stdio.h>
-#include "stack.h"
+#include "inventoryFunctions.h"
 
 
 void main()
 {
-  Cart(10001);
+  //char name[20]="Boroline";
+  //add_item(name);
+  view_items();
 }

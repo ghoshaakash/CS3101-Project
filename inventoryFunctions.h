@@ -83,8 +83,8 @@ void add_UID(struct item *t)
 	
 void initialize_item(struct item *t)
 {
-	printf("Enter item name :\n");
-	gets(t->name);
+	//printf("Enter item name :\n");
+	//gets(t->name);
 	add_UID(t);
 	//printf("Enter item UID :\n");
 	//scanf("%s",t->UID);
@@ -125,9 +125,10 @@ int get_item_name(char* uid,char* name)
 Adds a new item to the inventory 
 returns : None
 */
-void add_item()
+void add_item(char *name)
 {
 	struct item t;
+	strcpy(t.name,name);
 	initialize_item(&t);
 	
 	FILE * file= fopen("inventory", "ab");

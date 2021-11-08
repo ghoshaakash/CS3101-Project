@@ -50,7 +50,10 @@ label2://A pointer to return to the point when an admin is logged in and the dis
             }
             else if(b==2)
             {
-                add_item();
+            	char name[100];
+            	printf("Enter item name: \n");
+            	scanf("%s",name);
+                add_item(name);
                 goto label2;
             }
             else if(b==3)
