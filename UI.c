@@ -10,7 +10,8 @@ int UI()
 label://A pointer to return to the first page after the first choice or after logging out from the account 
 //The first choice to create an account or to login to an existing account
     printf("Welcome to the *Insert a name* online shopping website \n");
-    printf("Enter 1 if you want to create a new account, 2 if you want to login to your existing account and 0 to close the webiste \n");
+    printf("1 if you want to create a new account \n2 if you want to login to your existing account \n0 to close the webiste \n");
+    printf("===========================================\n");
     scanf(" %d",&n);
     if(n==1)
     {
@@ -40,7 +41,8 @@ label://A pointer to return to the first page after the first choice or after lo
         {
 label2://A pointer to return to the point when an admin is logged in and the display page after logging in or before logging out
 //The second choice for the admin
-            printf("1 to check the full inventory, 2 to add a new item to the inventory, 3 to check the quantity of a particular item in the inventory, 4 to change the quantity of an existing item in the inventory, 5 to delete an item from the inventory, 6 to check if an item is present in the inventory and 0 to logout from your account \n");
+            printf("1 to check the full inventory \n2 to add a new item to the inventory \n3 to check the quantity of a particular item in the inventory \n4 to change the quantity of an existing item in the inventory \n5 to delete an item from the inventory \n6 to check if an item is present in the inventory \n0 to logout from your account \n");
+            printf("===========================================\n");
             scanf(" %d",&b);
             if(b==1)
             {
