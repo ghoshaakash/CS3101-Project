@@ -65,7 +65,7 @@ void add_UID(struct item *t)
 	{
     
     	fseek(file, 0, SEEK_END);
-    	fseek(file,-sizeof(struct item),SEEK_CUR);
+    	fseek(file,-(long)(sizeof(struct item)),SEEK_CUR);
     	fread(&t1, sizeof(struct item), 1, file);
     		
     	char uid[30];

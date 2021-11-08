@@ -121,7 +121,7 @@ label3://A pointer to return to the point when an user is logged in and the disp
     }
 }
 
-int main()
+/*int main()
 {
     UI();
-}
+}*/
