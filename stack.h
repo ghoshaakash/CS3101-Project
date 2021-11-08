@@ -161,7 +161,7 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 /*
 Prints bill and resets both top variables to -1. Takes string array, int array and pointers to their respective top variables, and a char variable (needed for the pop_string function) as input.
 */
-void print_bill(char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
+void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
 {
 	float total=0,amount;
 	int i;
@@ -206,11 +206,12 @@ int Cart(long PeopleUID)
 	int top_1=-1,top_2=-1, *p, *q;
 	p=&top_1;
 	q=&top_2;
-	int a,b,i;
+	int a,b,i,n=0;
 	char c,d, s[100];
+	char searchPhrase[100]={'\0'};
 	int key;
 
-	while(1)
+	while(n==0)
 	{
 		printf("Choose operation:\n");
 		printf("0 to go to the previous set of commands \n1 to add an item to the cart \n2 to view cart \n3 to remove an item \n4 to proceed to checkout\n5 to search items by string.\n");
@@ -219,7 +220,7 @@ int Cart(long PeopleUID)
 
 	switch(key)
 		{
-			case 0:	exit(0);
+			case 0:	n=1;
 					break;
 			case 1: add_to_cart(item_arr,quantity_arr,p,q);
 					break;
@@ -228,12 +229,10 @@ int Cart(long PeopleUID)
 			case 3: remove_from_cart(item_arr,quantity_arr,p,q, top_string);
 					break;
 			case 4: print_bill(PeopleUID,item_arr,quantity_arr,p,q, top_string);
-					exit(0);
+					n=1;
 					break;
 			case 5: 
-					{
 						printf("%s","Enter search phrase :\n");
-						char searchPhrase[100]={'\0'};
 						scanf("%s",searchPhrase);
 						a=strlen(searchPhrase);
 						for(i=0;i<=a;i++)
@@ -245,8 +244,8 @@ int Cart(long PeopleUID)
 						}
 						view_items_by_string(searchPhrase);
 						break;
-					}
 			default: printf("Invalid operation!\n");
+					 n=1;
 					 break;
 		}
 	}

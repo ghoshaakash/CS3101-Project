@@ -1,9 +1,8 @@
 #include<stdio.h>
-
 #include "stack.h"
 #include "userFunctions.h"
 //The first page that will get displayed as soon as the program starts
-int welcome()
+int UI()
 {
     int n,a,b,d;
     char c[100],e[100];
@@ -125,5 +124,5 @@ label3://A pointer to return to the point when an user is logged in and the disp
 
 int main()
 {
-    welcome();
+    UI();
 }
