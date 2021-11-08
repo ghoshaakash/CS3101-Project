@@ -79,7 +79,7 @@ void display(char item_arr[50][20], int quantity_arr[50], int top)
 	}
 	for(i=top;i>-1;i--)
 	{
-		char name[20];
+		char name[80];
 		get_item_name(item_arr[i],name);
 		printf("UID: %s \t Item name: %s \t Quantity: %d\n",item_arr[i],name,quantity_arr[i]);
 	}
@@ -161,29 +161,41 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 /*
 Prints bill and resets both top variables to -1. Takes string array, int array and pointers to their respective top variables, and a char variable (needed for the pop_string function) as input.
 */
-void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
+void print_bill(char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
 {
 	float total=0,amount;
-	printf("%-50s %-8s%-12s%-8s\n","ITEM","RATE","QUANTITY","AMOUNT");
-	printf("================================================================================\n");
-	while(*p!=-1)
+	int i;
+	for(i=*p;i>-1;i--)
 	{
-		char name[50];
-		get_item_name(pop_string(item_arr,p,top_string),name);
-		char UID[20];
-		*p+=1;
-		strcpy(UID,pop_string(item_arr,p,top_string));
-		int quantity;
-		quantity=pop_int(quantity_arr,q);
-
-		amount=get_price(UID)*quantity;
+		amount=get_price(item_arr[i])*quantity_arr[i];
 		total+=amount;
-		printf("%-50s%-6.2f    %-11d%-6.2f\n",name,get_price(UID),quantity,amount);
 	}
-	printf("================================================================================\n");
-	printf("TOTAL = Rs. %.2f/-\n",total);
-	int OrderID=AssignSlots(PeopleUID,total);
-	
+	if(total>0)
+	{
+		printf("%-53s %-20s %-15s %-15s %s\n","ITEM","UID","RATE","QUANTITY","AMOUNT");
+		printf("===================================================================================================================\n");
+		while(*p!=-1)
+		{
+			char name[50];
+			get_item_name(pop_string(item_arr,p,top_string),name);
+
+			char UID[20];
+			*p+=1;
+			strcpy(UID,pop_string(item_arr,p,top_string));
+
+			int quantity;
+			quantity=pop_int(quantity_arr,q);
+			amount=get_price(UID)*quantity;
+			total+=amount;
+
+			printf("%-73s %-20.2f %-11d %.2f\n",name,get_price(UID),quantity,amount);
+		}
+		printf("===================================================================================================================\n");
+		printf("TOTAL = Rs. %.2f/-\n",total);
+		int OrderID=AssignSlots(PeopleUID,total);
+	}
+	else
+		printf("Invalid order!\n");
 }
 
 
@@ -235,6 +247,7 @@ int Cart(long PeopleUID)
 						break;
 					}
 			default: printf("Invalid operation!\n");
+					 break;
 		}
 	}
 
