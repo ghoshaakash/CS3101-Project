@@ -199,10 +199,10 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 
 
 
-void LogOrder(long OID,long UID,int d,int m,int y,int slot,float Price)//Appends order to CSV file
+void LogOrder(long OID,long UID,int d,int m,int y,int slot,float Price, char ADD[1000])//Appends order to CSV file
 {
     FILE *fptr = fopen("Log.csv","a");
-   fprintf(fptr,"%ld,%ld,%d,%d,%d,%d,%f\n",OID,UID,d,m,y,slot,Price);
+   fprintf(fptr,"%ld,%ld,%d,%d,%d,%d,%f,%s\n",OID,UID,d,m,y,slot,Price,ADD);
    fclose(fptr);
 }
 
@@ -239,7 +239,10 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
         }
         printf("Chosen slot is full/Bad input. Please input valid slot number again:");
     }
+    printf("Enter address :");
+    char Add[1000]={'\0'};
+    scanf(" %[^\n]",Add);
     long OID=addorder(slot);
-    printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\n",d,m,y,slot,price,OID);
-    LogOrder(OID,UID,d,m,y,slot,price);
+    printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\n Delivery will be done at %s\n",d,m,y,slot,price,OID,Add);
+    LogOrder(OID,UID,d,m,y,slot,price,Add);
 }
