@@ -4,8 +4,8 @@
 #include <math.h>
 #include <windows.h> 
 
-#define DeliveryPeople 2
-#define Slots 2
+#define DeliveryPeople 10
+#define Slots 3
 
 struct scheduler//struct to store data in LatestScheduler.ord
 {

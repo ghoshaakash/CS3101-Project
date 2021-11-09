@@ -189,7 +189,7 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 			amount=get_price(UID)*quantity;
 			total+=amount;
 
-			printf("%-73s %-20.2f %-11d %.2f\n",name,get_price(UID),quantity,amount);
+			printf("%-50s %-20s %-20.2f %-11d %.2f\n",name,UID,get_price(UID),quantity,amount);
 		}
 		printf("===================================================================================================================\n");
 		printf("TOTAL = Rs. %.2f/-\n",total);
