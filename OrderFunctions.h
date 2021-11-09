@@ -243,6 +243,6 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
     char Add[1000]={'\0'};
     scanf(" %[^\n]",Add);
     long OID=addorder(slot);
-    printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\n Delivery will be done at %s\n",d,m,y,slot,price,OID,Add);
+    printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
     LogOrder(OID,UID,d,m,y,slot,price,Add);
 }
