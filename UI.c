@@ -47,6 +47,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
             if(b==1)
             {
                 view_items();
+                //printf("\n\n\n");
                 goto label2;
             }
             else if(b==2)
@@ -55,6 +56,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
             	printf("Enter item name: \n");
             	scanf(" %[^\n]",name);
                 add_item(name);
+                //printf("\n\n\n");
                 goto label2;
             }
             else if(b==3)
@@ -63,6 +65,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 scanf(" %s",&c);
                 int q=get_quantity(c);
                 printf("The quantity of the item having UID %s in the inventory is %d \n", c, q);
+                //printf("\n\n\n");
                 goto label2;
             }
             else if(b==4)
@@ -72,6 +75,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 printf("Enter the quantity of the item to be changed to in the inventory \n");
                 scanf(" %d",&d);
                 edit_item_quantity(c,d);
+                //printf("\n\n\n");
                 goto label2;
             }
             else if(b==5)
@@ -79,6 +83,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 printf("Enter the UID of the item which is to be deleted from the inventory: \n");
                 scanf(" %s",&c);
                 delete_item(c);
+                //printf("\n\n\n");
                 goto label2;
             }
             else if(b==6)
@@ -89,15 +94,18 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 if(e==1)
                 {
                     printf("The item is present in the inventory \n");
+                    //printf("\n\n\n");
                 }
                 else
                 {
                     printf("The item is not present in the inventory \n");
+                    //printf("\n\n\n");
                 }
                 goto label2;
             }
             else if(b==0)
             {
+            	//printf("\n\n\n");
                 goto label;
             }
         }
@@ -105,13 +113,16 @@ label2://A pointer to return to the point when an admin is logged in and the dis
         {
 label3://A pointer to return to the point when an user is logged in and the display page after logging in or before logging out
 //The second choice for the user
+			//printf("\n\n\n");
             printf("Please enter 1 to open the set of commands and 0 to logout from your account \n");
             scanf(" %d",&b);
+            //printf("\n\n\n");
             if(b==0)
             {
+            	
                 goto label;
             }
-            else
+            else if(b==1)
             {
                 d=Cart(U);
                 if(d==0)
@@ -119,6 +130,12 @@ label3://A pointer to return to the point when an user is logged in and the disp
                     goto label3;
                 }
             }
+            else
+            {
+            	printf("Invalid input!!!");
+            	goto label3;
+			}
+            
         }
     }
 }
