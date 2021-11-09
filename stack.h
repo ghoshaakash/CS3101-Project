@@ -174,6 +174,7 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 	{
 		printf("%-53s %-20s %-15s %-15s %s\n","ITEM","UID","RATE","QUANTITY","AMOUNT");
 		printf("===================================================================================================================\n");
+		total=0;
 		while(*p!=-1)
 		{
 			char name[50];
