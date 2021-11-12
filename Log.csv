@@ -1,3 +1,4 @@
-Order no,UID,Day,Month,Year,Slot,Price,Address
-10001,10008,10,11,2021,3,516.750000,Kolkata
-10002,10008,10,11,2021,2,54.599998,Dum Dum
+Order no,UID,Type,Day,Month,Year,Slot,Price,Address
+
+10003,1
+10004,10022,1

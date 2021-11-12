@@ -7,47 +7,54 @@
 #define DeliveryPeople 10
 #define Slots 5
 
+
+
+void clrscr()
+{
+	printf("\e[1;1H\e[2J");
+}
+
 struct scheduler//struct to store data in LatestScheduler.ord
 {
-    int d;
-    int m;
-    int y;
-    int slot[Slots];
-    long OrderID;
+	int d;
+	int m;
+	int y;
+	int slot[Slots];
+	long OrderID;
 };
 
 void nextDate(int *d,int *m,int *y)//changes date to next day
 {
-    int DaysInMonth[]={31,28,31,30,31,30,31,31,30,31,30,31};
-    if((*y)%100==0)
-    {
-        if((*y)%400==0)
-        {
-            DaysInMonth[1]=29;
-        }
-    }
-    else if ((*y)%4==0)
-    {
-        DaysInMonth[1]=29;
-    }
-    if((*d)!=DaysInMonth[(*m)-1])
-    {
-        *d=*d+1;
-    }
-    else
-    {
-        *d=1;
-        if((*m)!=12)
-        {
-            *m=*m+1;
-        }
-        else
-        {
-            *m=1;
-            *y=*y+1;
-        }
-    }
-    
+	int DaysInMonth[]={31,28,31,30,31,30,31,31,30,31,30,31};
+	if((*y)%100==0)
+	{
+		if((*y)%400==0)
+		{
+			DaysInMonth[1]=29;
+		}
+	}
+	else if ((*y)%4==0)
+	{
+		DaysInMonth[1]=29;
+	}
+	if((*d)!=DaysInMonth[(*m)-1])
+	{
+		*d=*d+1;
+	}
+	else
+	{
+		*d=1;
+		if((*m)!=12)
+		{
+			*m=*m+1;
+		}
+		else
+		{
+			*m=1;
+			*y=*y+1;
+		}
+	}
+	
 }
 
 
@@ -62,135 +69,135 @@ void nextDate(int *d,int *m,int *y)//changes date to next day
 
 void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 {
-    FILE* fptr = fopen("LatestScheduler.ord","rb+");
-    struct scheduler s; 
-    int NewRecordFlag=0;
-    int i=fread(&s, sizeof(s), 1, fptr);
-    if(i==1)
-    {
-        char str[50]="Free Slots are:";
-        printf("%s",str);
-        SYSTEMTIME t;
-        GetLocalTime(&t);
-        if(t.wYear<s.y)
-        {
-            NewRecordFlag=0;
-        }
-        else if(t.wYear>s.y)
-        {
-            NewRecordFlag=1;
-        }
-        else
-        {
-            if(t.wMonth<s.m)
-            {
-                NewRecordFlag=0;
-            }
-            else if(t.wMonth>s.m)
-            {
-                NewRecordFlag=1;
-            }
-            else
-            {
-                if(t.wDay>s.d)
-                {
-                    NewRecordFlag=1;
-                }
-                else
-                {
-                    NewRecordFlag=0;
-                }
-            }
-        }
-         if(NewRecordFlag==1)
-        {
-            fseek(fptr,0,SEEK_SET);
-            s.y=t.wYear;
-            s.m=t.wMonth;
-            s.d=t.wDay;
-            nextDate(&s.d,&s.m,&s.y);
-            *d=s.d;
-            *m=s.m;
-            *y=s.y;
-            for(int i=0;i<Slots;i++)
-            {
-                s.slot[i]=0;
-            }
-            fwrite(&s,1,sizeof(s),fptr);
-            for(int i=0;i<Slots;i++)
-            {
-                AvailableSlots[i]=1;
-                printf(" %d", i+1);
-                NewRecordFlag=0;
-            }
-            
-            printf("\n");
-            return;
-        }    
+	FILE* fptr = fopen("LatestScheduler.ord","rb+");
+	struct scheduler s; 
+	int NewRecordFlag=0;
+	int i=fread(&s, sizeof(s), 1, fptr);
+	if(i==1)
+	{
+		char str[50]="Free Slots are:";
+		printf("%s",str);
+		SYSTEMTIME t;
+		GetLocalTime(&t);
+		if(t.wYear<s.y)
+		{
+			NewRecordFlag=0;
+		}
+		else if(t.wYear>s.y)
+		{
+			NewRecordFlag=1;
+		}
+		else
+		{
+			if(t.wMonth<s.m)
+			{
+				NewRecordFlag=0;
+			}
+			else if(t.wMonth>s.m)
+			{
+				NewRecordFlag=1;
+			}
+			else
+			{
+				if(t.wDay>s.d)
+				{
+					NewRecordFlag=1;
+				}
+				else
+				{
+					NewRecordFlag=0;
+				}
+			}
+		}
+		 if(NewRecordFlag==1)
+		{
+			fseek(fptr,0,SEEK_SET);
+			s.y=t.wYear;
+			s.m=t.wMonth;
+			s.d=t.wDay;
+			nextDate(&s.d,&s.m,&s.y);
+			*d=s.d;
+			*m=s.m;
+			*y=s.y;
+			for(int i=0;i<Slots;i++)
+			{
+				s.slot[i]=0;
+			}
+			fwrite(&s,1,sizeof(s),fptr);
+			for(int i=0;i<Slots;i++)
+			{
+				AvailableSlots[i]=1;
+				printf(" %d", i+1);
+				NewRecordFlag=0;
+			}
+			
+			printf("\n");
+			return;
+		}    
 
 
-        if(NewRecordFlag==0)
-        {
-            NewRecordFlag=1;
-            for(int i=0;i<Slots;i++)
-            {
-                if(s.slot[i]<DeliveryPeople)
-                {
-                    AvailableSlots[i]=1;
-                    printf(" %d", i+1);
-                    NewRecordFlag=0;
-                }
-            }
-        }
-        if(NewRecordFlag==1)
-        {
-            fseek(fptr,0,SEEK_SET);
-            nextDate(&s.d,&s.m,&s.y);
-            for(int i=0;i<Slots;i++)
-            {
-                s.slot[i]=0;
-            }
-            fwrite(&s,1,sizeof(s),fptr);
-            for(int i=0;i<Slots;i++)
-            {
-                AvailableSlots[i]=1;
-                printf(" %d", i+1);
-                NewRecordFlag=0;
-            }
-        }    
-        printf("\n");
-    }
-    else
-    {
-        fclose(fptr);
-        FILE* fptr = fopen("LatestScheduler.ord","wb");
-        SYSTEMTIME t;
-        GetLocalTime(&t);
-        fseek(fptr,0,SEEK_SET);
-        char str[50]="Free Slots are:";
-        printf("%s",str);
-        s.y=t.wYear;
-        s.m=t.wMonth;
-        s.d=t.wDay;
-        s.OrderID=10000;
-        nextDate(&(s.d),&(s.m),&(s.y));
-        for(int i=0;i<Slots;i++)
-        {
-            s.slot[i]=0;
-        }
-        fwrite(&s,1,sizeof(s),fptr);
-        for(int i=0;i<Slots;i++)
-        {
-            AvailableSlots[i]=1;
-            printf(" %d", i+1);
-            NewRecordFlag=0;
-        }
-        printf("\n");
-    }
-    *d=s.d;
-    *m=s.m;
-    *y=s.y;
-     fclose(fptr);
+		if(NewRecordFlag==0)
+		{
+			NewRecordFlag=1;
+			for(int i=0;i<Slots;i++)
+			{
+				if(s.slot[i]<DeliveryPeople)
+				{
+					AvailableSlots[i]=1;
+					printf(" %d", i+1);
+					NewRecordFlag=0;
+				}
+			}
+		}
+		if(NewRecordFlag==1)
+		{
+			fseek(fptr,0,SEEK_SET);
+			nextDate(&s.d,&s.m,&s.y);
+			for(int i=0;i<Slots;i++)
+			{
+				s.slot[i]=0;
+			}
+			fwrite(&s,1,sizeof(s),fptr);
+			for(int i=0;i<Slots;i++)
+			{
+				AvailableSlots[i]=1;
+				printf(" %d", i+1);
+				NewRecordFlag=0;
+			}
+		}    
+		printf("\n");
+	}
+	else
+	{
+		fclose(fptr);
+		FILE* fptr = fopen("LatestScheduler.ord","wb");
+		SYSTEMTIME t;
+		GetLocalTime(&t);
+		fseek(fptr,0,SEEK_SET);
+		char str[50]="Free Slots are:";
+		printf("%s",str);
+		s.y=t.wYear;
+		s.m=t.wMonth;
+		s.d=t.wDay;
+		s.OrderID=10000;
+		nextDate(&(s.d),&(s.m),&(s.y));
+		for(int i=0;i<Slots;i++)
+		{
+			s.slot[i]=0;
+		}
+		fwrite(&s,1,sizeof(s),fptr);
+		for(int i=0;i<Slots;i++)
+		{
+			AvailableSlots[i]=1;
+			printf(" %d", i+1);
+			NewRecordFlag=0;
+		}
+		printf("\n");
+	}
+	*d=s.d;
+	*m=s.m;
+	*y=s.y;
+	 fclose(fptr);
 
 }
 
@@ -199,50 +206,95 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 
 
 
-void LogOrder(long OID,long UID,int d,int m,int y,int slot,float Price, char ADD[1000])//Appends order to CSV file
+void LogOrderDelivery(long OID,long UID,int d,int m,int y,int slot,float Price, char ADD[1000])//Appends log order to CSV file
 {
-    FILE *fptr = fopen("Log.csv","a");
-   fprintf(fptr,"%ld,%ld,%d,%d,%d,%d,%f,%s\n",OID,UID,d,m,y,slot,Price,ADD);
-   fclose(fptr);
+	FILE *fptr = fopen("Log.csv","a");
+	fprintf(fptr,"%ld,2,%ld,%d,%d,%d,%d,%f,%s\n",OID,UID,d,m,y,slot,Price,ADD);
+	fclose(fptr);
 }
 
-long addorder(int slot)//Incements the slot in last order where order was placed and returns orderID
+void LogOrderPickUp(long OID,long UID)//Appends pickup order to CSV file
 {
-    FILE* fptr = fopen("LatestScheduler.ord","rb+");
-    struct scheduler s;
-    fread(&s, sizeof(s), 1, fptr);
-    s.slot[slot-1]=s.slot[slot-1]+1;
-    fseek(fptr,0,SEEK_SET);
-    s.OrderID=s.OrderID+1;
-    long ord=s.OrderID;
-    fwrite(&s,1,sizeof(s),fptr);
-    fclose(fptr);
-    return ord;
+	FILE *fptr = fopen("Log.csv","a");
+	fprintf(fptr,"%ld,%ld,1\n",OID,UID);
+	fclose(fptr);
+}
+
+
+
+long addOrderDelivery(int slot)//Incements the slot in last order where order was placed and returns orderID
+{
+	FILE* fptr = fopen("LatestScheduler.ord","rb+");
+	struct scheduler s;
+	fread(&s, sizeof(s), 1, fptr);
+	s.slot[slot-1]=s.slot[slot-1]+1;
+	fseek(fptr,0,SEEK_SET);
+	s.OrderID=s.OrderID+1;
+	long ord=s.OrderID;
+	fwrite(&s,1,sizeof(s),fptr);
+	fclose(fptr);
+	return ord;
+}
+
+long addOrderPickup()
+{
+	FILE* fptr = fopen("LatestScheduler.ord","rb+");
+	struct scheduler s;
+	fread(&s, sizeof(s), 1, fptr);
+	fseek(fptr,0,SEEK_SET);
+	s.OrderID=s.OrderID+1;
+	long ord=s.OrderID;
+	fwrite(&s,1,sizeof(s),fptr);
+	fclose(fptr);
+	return ord;
 }
 
 
 long AssignSlots(long UID, float price)//Assigns slot and logs order, returns ORDER ID
 {
-    int d=0,m=0,y=0;
-    int flag=1;
-    int AvailableSlots[Slots]={0};
-    MakeSlot(AvailableSlots,&d,&m,&y);
-    printf("%s","Enter Desired Slot :");
-    int slot;
-    while(flag)
-    {
-        scanf(" %d",&slot);
-        if(AvailableSlots[slot-1]==1)
-        {
-            flag=0;
-            break;
-        }
-        printf("Chosen slot is full/Bad input. Please input valid slot number again:");
-    }
-    printf("Enter address :");
-    char Add[1000]={'\0'};
-    scanf(" %[^\n]",Add);
-    long OID=addorder(slot);
-    printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
-    LogOrder(OID,UID,d,m,y,slot,price,Add);
+	clrscr();
+	int PickUpFlag;
+	printf("Enter 1 for pickup and 2 for delivery option: ");
+	scanf(" %d",&PickUpFlag);
+	while(1)
+	{
+		if(PickUpFlag==1)
+		{
+			long OID=addOrderPickup();
+			LogOrderPickUp(OID,UID);
+			printf("Your order has been placed with order ID %ld. Press any key to return to previous menu.\n",OID);
+			printf("-----------------------------------------------------------------------------------\n");
+			getchar();
+			return OID;
+		}
+		else if(PickUpFlag==2)
+		{
+			break;
+		}
+		printf("Bad Input. Plase Try Again: ");
+		scanf(" %d",&PickUpFlag);
+	}
+	int d=0,m=0,y=0;
+	int flag=1;
+	int AvailableSlots[Slots]={0};
+	MakeSlot(AvailableSlots,&d,&m,&y);
+	printf("%s","Enter Desired Slot :");
+	int slot;
+	while(flag)
+	{
+		scanf(" %d",&slot);
+		if(AvailableSlots[slot-1]==1)
+		{
+			flag=0;
+			break;
+		}
+		printf("Chosen slot is full/Bad input. Please input valid slot number again:");
+	}
+	printf("Enter address :");
+	char Add[1000]={'\0'};
+	scanf(" %[^\n]",Add);
+	long OID=addOrderDelivery(slot);
+	printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
+	printf("----------------------------------------------------------------------------------------------------------");
+	LogOrderDelivery(OID,UID,d,m,y,slot,price,Add);
 }

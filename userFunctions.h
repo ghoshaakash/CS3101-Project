@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
-#include <math.h>
+#include <time.h>
 
 //structures
 struct people
@@ -33,7 +33,9 @@ int AuthUser(long int UID)//searches for uid and checks password. returns 1 if a
             scanf(" %[^\n]",password);
             if(strcmp(password, i.password)==0)
             {
-                printf("Auth successful\n");
+                printf("Hello %s .Your Authentication is successful. Press any key to continue.\n",i.name);
+                getch();
+
                 if(strcmp(i.role,"Admin")==0)
                 {
                     return(1);
@@ -81,7 +83,7 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
     printf("Enter User Role: ");
     char str[50]={'\0'};
     scanf(" %s",p.role);
-    if(!strcmp(p.role,"Admin"))
+    if((!strcmp(p.role,"Admin"))||(!strcmp(p.role,"admin")))
     {
         long int UID;
         printf("Existing Admin credentials needed for Adding Admins \n");
@@ -100,7 +102,7 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
     strcpy(p.role,"User");
     fwrite(&p, sizeof(p), 1, fptr);
     fclose(fptr);
-    printf("Registered with UID %ld  \n",p.UID);
+    printf("Hello %s. You have been succesfully registered with UID %ld.\nPress any key to continue.",p.name,p.UID);
     return 1;
 }
 
@@ -128,6 +130,6 @@ void Initialize()//To inititalzie first Admin
     strcpy(p.role,"Admin");
     fwrite(&p, sizeof(p), 1, fptr);
     fclose(fptr);
-    printf("Registered with UID %ld \n",p.UID);
+    printf("Hello %s. You have been succesfully registered with UID %ld.\nPress any key to continue.",p.name,p.UID);
 }
 
