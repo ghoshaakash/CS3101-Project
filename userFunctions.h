@@ -10,6 +10,8 @@ struct people
     char role[10];
     long UID;
     char password[50];
+    
+
 };
 
 
@@ -102,7 +104,7 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
     strcpy(p.role,"User");
     fwrite(&p, sizeof(p), 1, fptr);
     fclose(fptr);
-    printf("Hello %s. You have been succesfully registered with UID %ld.\nPress any key to continue.",p.name,p.UID);
+    printf("Hello %s. You have been succesfully registered with UID %ld.\n",p.name,p.UID);
     return 1;
 }
 
