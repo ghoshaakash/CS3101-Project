@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <conio.h>
 #include <string.h>
 #include <time.h>
 
@@ -38,22 +37,26 @@ int AuthUser(long int UID)//searches for uid and checks password. returns 1 if a
 
                 if(strcmp(i.role,"Admin")==0)
                 {
+                	fclose(fptr);
                     return(1);
                 }
                 else
                 {
+                	fclose(fptr);
                     return(2);
                 }
             }
             else
             {
                 printf("Password incorrect\n");
+                fclose(fptr);
                 return(0);
             }
 
         }
     }
     printf("UID not found \n");
+    fclose(fptr);
     return(0);    
 }
 
@@ -96,6 +99,7 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
         else
         {
             printf("Wrong Credentials\n");
+            fclose(fptr);
             return 0;
         }
     }

@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <conio.h>
 #include <string.h>
 #include <math.h>
 #include <windows.h> 
@@ -264,7 +263,7 @@ int addAddress(long UID)// adds address entry to user record
     int flag=0;
     struct people t;
 	FILE * file1= fopen("people", "rb");
-	FILE * file2= fopen("copy", "wb");
+	FILE * file2= fopen("lol", "wb");
 	if(file1 != NULL && file2 != NULL) 
 	{
     while(fread(&t, sizeof(struct people), 1, file1))
@@ -303,7 +302,8 @@ int addAddress(long UID)// adds address entry to user record
     fclose(file2);
     
     remove("people");
-    rename("copy","people");
+    rename("lol","people");
+    printf("renamed");
 	}	
     if(flag==0)
     {
@@ -317,7 +317,7 @@ int deleteAddress(long UID)//delete address record
     int flag=0;
     struct people t;
 	FILE * file1= fopen("people", "rb");
-	FILE * file2= fopen("copy", "wb");
+	FILE * file2= fopen("lol", "wb");
 	if(file1 != NULL && file2 != NULL) 
 	{
     while(fread(&t, sizeof(struct people), 1, file1))
@@ -371,7 +371,8 @@ int deleteAddress(long UID)//delete address record
     fclose(file2);
     
     remove("people");
-    rename("copy","people");
+    rename("lol","people");
+    printf("renamed");
 	}	
     if(flag==0)
     {
