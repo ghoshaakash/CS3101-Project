@@ -207,17 +207,17 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 
 
 
-void LogOrderDelivery(long OID,long UID,int d,int m,int y,int slot,float Price, char ADD[1000])//Appends log order to CSV file
+void LogOrderDelivery(long OID,long UID,int d,int m,int y,int slot,float Price, char ADD[1000], char Det[1000])//Appends log order to CSV file
 {
-	FILE *fptr = fopen("Log.csv","a");
-	fprintf(fptr,"%ld,2,%ld,%d,%d,%d,%d,%f,%s\n",OID,UID,d,m,y,slot,Price,ADD);
+	FILE *fptr = fopen("Delivery.csv","a");
+	fprintf(fptr,"%ld,2,%ld,%d,%d,%d,%d,%f,%s,%s\n",OID,UID,d,m,y,slot,Price,ADD,Det);
 	fclose(fptr);
 }
 
-void LogOrderPickUp(long OID,long UID)//Appends pickup order to CSV file
+void LogOrderPickUp(long OID,long UID, char Det[1000])//Appends pickup order to CSV file
 {
-	FILE *fptr = fopen("Log.csv","a");
-	fprintf(fptr,"%ld,%ld,1\n",OID,UID);
+	FILE *fptr = fopen("PickUp.csv","a");
+	fprintf(fptr,"%ld,%ld,%s\n",OID,UID,Det);
 	fclose(fptr);
 }
 
@@ -476,54 +476,7 @@ void addressManager(long UID)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-long AssignSlots(long UID, float price)//Assigns slot and logs order, returns ORDER ID
+long AssignSlots(long UID, float price,char OrderDet[1000])//Assigns slot and logs order, returns ORDER ID
 {
 	clrscr();
 	int PickUpFlag;
@@ -534,7 +487,7 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 		if(PickUpFlag==1)
 		{
 			long OID=addOrderPickup();
-			LogOrderPickUp(OID,UID);
+			LogOrderPickUp(OID,UID,OrderDet);
 			printf("Your order has been placed with order ID %ld. Press any key to return to previous menu.\n",OID);
 			printf("-----------------------------------------------------------------------------------\n");
 			getchar();
@@ -571,7 +524,7 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 	long OID=addOrderDelivery(slot);
 	printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
 	printf("----------------------------------------------------------------------------------------------------------");
-	LogOrderDelivery(OID,UID,d,m,y,slot,price,Add);
+	LogOrderDelivery(OID,UID,d,m,y,slot,price,Add,OrderDet);
 }
 
 
