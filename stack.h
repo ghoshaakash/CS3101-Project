@@ -107,6 +107,7 @@ void add_to_cart(char item_arr[50][20], int quantity_arr[50], int* p, int* q)
 		printf("The required quantity is not in stock.\n");
 	else
 		push(item_arr,quantity_arr,p,q,UID,quantity);
+		printf("Your cart has been succesfully updated. \n");
 }
 
 /*
@@ -215,7 +216,7 @@ int Cart(long PeopleUID)
 	while(n==0)
 	{
 		printf("Choose operation:\n");
-		printf("0 to go to the previous set of commands \n1 to add an item to the cart \n2 to view cart \n3 to remove an item \n4 to proceed to checkout\n5 to search items by string.\n");
+		printf("0 to go to the main menu \n1 to add an item to the cart \n2 to view cart \n3 to remove or update the quantity of an item from thecart\n4 to proceed to checkout\n5 to search items by string.\n");
 		printf("===========================================\n");
 		scanf(" %d",&key);
 

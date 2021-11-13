@@ -33,7 +33,7 @@ int AuthUser(long int UID)//searches for uid and checks password. returns 1 if a
             scanf(" %[^\n]",password);
             if(strcmp(password, i.password)==0)
             {
-                printf("Hello %s .Your Authentication is successful.\n",i.name);
+                printf("Welcome %s, \nYour Authentication is successful.\n",i.name);
 
                 if(strcmp(i.role,"Admin")==0)
                 {
@@ -106,7 +106,7 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
     strcpy(p.role,"User");
     fwrite(&p, sizeof(p), 1, fptr);
     fclose(fptr);
-    printf("Hello %s. You have been succesfully registered with UID %ld.\n",p.name,p.UID);
+    printf("You have been succesfully registered with UID %ld.\n",p.name,p.UID);
     return 1;
 }
 
