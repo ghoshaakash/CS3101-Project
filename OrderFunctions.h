@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <windows.h> 
-
+#include "userFunctions.h"
 #define DeliveryPeople 10
 #define Slots 5
 
@@ -250,6 +250,11 @@ long addOrderPickup()
 }
 
 
+
+
+
+
+
 long AssignSlots(long UID, float price)//Assigns slot and logs order, returns ORDER ID
 {
 	clrscr();
@@ -292,9 +297,12 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 	}
 	printf("Enter address :");
 	char Add[1000]={'\0'};
+	getaddress(UID,Add);
 	scanf(" %[^\n]",Add);
 	long OID=addOrderDelivery(slot);
 	printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
 	printf("----------------------------------------------------------------------------------------------------------");
 	LogOrderDelivery(OID,UID,d,m,y,slot,price,Add);
 }
+
+

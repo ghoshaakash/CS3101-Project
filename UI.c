@@ -11,7 +11,7 @@ label://A pointer to return to the first page after the first choice or after lo
 //The first choice to create an account or to login to an existing account
     printf("Welcome to the *Insert a name* online shopping website \n");
     printf("1 if you want to create a new account \n2 if you want to login to your existing account \n0 to close the webiste \n");
-    printf("=============================================================\n Enter Your Choice:");
+    printf("=============================================================\nEnter Your Choice:");
     scanf(" %d",&n);
     printf("\e[1;1H\e[2J");
     if(n==1)

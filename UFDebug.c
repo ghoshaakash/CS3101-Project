@@ -4,6 +4,7 @@
 
 void main()
 {
-  addAddress(1);
+  deleteAddress(10000);
   listAll();
+
 }
