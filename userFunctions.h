@@ -10,8 +10,7 @@ struct people
     char role[10];
     long UID;
     char password[50];
-    
-
+    char add[5][100];
 };
 
 
@@ -130,8 +129,81 @@ void Initialize()//To inititalzie first Admin
     printf("Enter User Password: ");
     scanf(" %[^\n]",p.password);
     strcpy(p.role,"Admin");
+    for(int i=0;i<5;i++)
+    {
+        p.add[i][0]='\0';
+    }
     fwrite(&p, sizeof(p), 1, fptr);
     fclose(fptr);
     printf("Hello %s. You have been succesfully registered with UID %ld.\nPress any key to continue.",p.name,p.UID);
 }
 
+
+int addAddress(long UID)
+{
+    int flag=0;
+    struct people t;
+	FILE * file1= fopen("people", "rb");
+	FILE * file2= fopen("copy", "wb");
+	if(file1 != NULL && file2 != NULL) 
+	{
+    while(fread(&t, sizeof(struct people), 1, file1))
+    {
+    	if(t.UID==UID)
+    	{
+            flag=1;
+            int top=0;
+            for(;top<=4;top++)
+            {
+                if(t.add[top][0]=='\0')
+                {
+                    break;
+                }
+            }
+            if(top==4)
+            {
+                printf("You have used all 5 address slots. Please deltele some entries and try again\n");
+            }
+            else
+            {
+                printf("Enter new Address :\n");
+                scanf(" %[^\n]",t.add[top]);
+            }
+
+
+    		fwrite(&t, sizeof(struct people), 1, file2);
+		}
+		else
+		{
+			fwrite(&t, sizeof(struct people), 1, file2);
+		}
+	}
+    
+    fclose(file1);
+    fclose(file2);
+    
+    remove("people");
+    rename("copy","people");
+	}	
+    if(flag==0)
+    {
+        printf("UID not found\n");
+    }
+    return flag;
+}
+
+void listAll()
+{
+    struct people p;
+    FILE *fptr;
+    if ((fptr = fopen("people","rb")) == NULL)
+    {
+    printf("Error! opening file\n");
+    return;
+    }
+    while (fread(&p, sizeof(p), 1, fptr)==1)
+    {
+        printf("%ld - %s - %s\n",p.UID,p.add[0],p.add[1]);
+    }
+    fclose(fptr);
+}

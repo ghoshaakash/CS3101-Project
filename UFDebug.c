@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include "inventoryFunctions.h"
+#include "userFunctions.h"
 
 
 void main()
 {
-  //char name[20]="Boroline";
-  //add_item(name);
-  view_items();
+  addAddress(1);
+  listAll();
 }
