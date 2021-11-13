@@ -139,7 +139,7 @@ void Initialize()//To inititalzie first Admin
 }
 
 
-int addAddress(long UID)
+int addAddress(long UID)// adds address entry to user record
 {
     int flag=0;
     struct people t;
@@ -192,7 +192,7 @@ int addAddress(long UID)
     return flag;
 }
 
-int deleteAddress(long UID)
+int deleteAddress(long UID)//delete address record
 {
     int flag=0;
     struct people t;
@@ -261,7 +261,7 @@ int deleteAddress(long UID)
 }
 
 
-void getaddress(long UID,char ADD[100])
+void getaddress(long UID,char ADD[100])//returns addrress
 {
     struct people t;
 	FILE * file1= fopen("people", "rb");
