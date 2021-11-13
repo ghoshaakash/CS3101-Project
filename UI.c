@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include "stack.h"
-#include "userFunctions.h"
+
+
+
 //The first page that will get displayed as soon as the program starts
 int UI()
 {
@@ -105,6 +107,10 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 }
                 goto label2;
             }
+            else if(b==7)
+            {
+                addressManager(U);
+            }
             else if(b==0)
             {
             	//printf("\n\n\n");
@@ -116,7 +122,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
 label3://A pointer to return to the point when an user is logged in and the display page after logging in or before logging out
 //The second choice for the user
 			//printf("\n\n\n");
-            printf("Please enter 1 to open the set of commands and 0 to logout from your account \n");
+            printf("Please enter 1 to open the set of commands to shop, 0 to logout from your account, 2 to edit address record\n");
             scanf(" %d",&b);
             printf("\e[1;1H\e[2J");
             //printf("\n\n\n");
@@ -132,6 +138,10 @@ label3://A pointer to return to the point when an user is logged in and the disp
                 {
                     goto label3;
                 }
+            }
+            else if(b==2)
+            {
+                addressManager(U);
             }
             else
             {

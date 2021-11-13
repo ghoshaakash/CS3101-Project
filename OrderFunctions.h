@@ -4,6 +4,8 @@
 #include <math.h>
 #include <windows.h> 
 #include "userFunctions.h"
+
+
 #define DeliveryPeople 10
 #define Slots 5
 
@@ -248,6 +250,271 @@ long addOrderPickup()
 	fclose(fptr);
 	return ord;
 }
+
+
+
+
+
+
+
+
+
+int addAddress(long UID)// adds address entry to user record
+{
+    int flag=0;
+    struct people t;
+	FILE * file1= fopen("people", "rb");
+	FILE * file2= fopen("copy", "wb");
+	if(file1 != NULL && file2 != NULL) 
+	{
+    while(fread(&t, sizeof(struct people), 1, file1))
+    {
+    	if(t.UID==UID)
+    	{
+            flag=1;
+            int top=0;
+            for(;top<=4;top++)
+            {
+                if(t.add[top][0]=='\0')
+                {
+                    break;
+                }
+            }
+            if(top==4)
+            {
+                printf("You have used all 5 address slots. Please deltele some entries and try again\n");
+            }
+            else
+            {
+                printf("Enter new Address :\n");
+                scanf(" %[^\n]",t.add[top]);
+            }
+
+
+    		fwrite(&t, sizeof(struct people), 1, file2);
+		}
+		else
+		{
+			fwrite(&t, sizeof(struct people), 1, file2);
+		}
+	}
+    
+    fclose(file1);
+    fclose(file2);
+    
+    remove("people");
+    rename("copy","people");
+	}	
+    if(flag==0)
+    {
+        printf("UID not found\n");
+    }
+    return flag;
+}
+
+int deleteAddress(long UID)//delete address record
+{
+    int flag=0;
+    struct people t;
+	FILE * file1= fopen("people", "rb");
+	FILE * file2= fopen("copy", "wb");
+	if(file1 != NULL && file2 != NULL) 
+	{
+    while(fread(&t, sizeof(struct people), 1, file1))
+    {
+    	if(t.UID==UID)
+    	{
+            flag=1;
+            int top=0;
+            for(;top<=4;top++)
+            {
+                if(t.add[top][0]=='\0')
+                {
+                    break;
+                }
+            }
+            if(top==0)
+            {
+                printf("Your address list is empty\n");
+            }
+            else
+            {
+                for(int i=0;i<=top-1;i++)
+                {
+                    printf("%d. %s\n",i+1,t.add[i]);
+                }
+                int i;
+                printf("Enter address number you wish to delete :");
+                scanf(" %d",&i);
+                while(!(i<=top))
+                {
+                    printf("Bad input. Try again :");
+                    scanf(" %d",&i);
+                }
+                for(int j=i-1;j<=top-1;j++)
+                {
+                    strcpy(t.add[j],t.add[j+1]);
+                }
+                t.add[top][0]='\0';
+            }
+
+
+    		fwrite(&t, sizeof(struct people), 1, file2);
+		}
+		else
+		{
+			fwrite(&t, sizeof(struct people), 1, file2);
+		}
+	}
+    
+    fclose(file1);
+    fclose(file2);
+    
+    remove("people");
+    rename("copy","people");
+	}	
+    if(flag==0)
+    {
+        printf("UID not found\n");
+    }
+    return flag;
+}
+
+
+int getaddress(long UID,char ADD[100])//returns addrress
+{
+    struct people t;
+	FILE * file1= fopen("people", "rb");
+	if(file1 != NULL) 
+	{
+        while(fread(&t, sizeof(struct people), 1, file1))
+        {
+    	    if(t.UID==UID)
+    	    {
+                fclose(file1);
+                int top=0;
+                for(;top<=4;top++)
+                {
+                    if(t.add[top][0]=='\0')
+                    {
+                        break;
+                    }
+                    printf("%d. %s",top+1,t.add[top]);
+                }   
+                if(top==0)
+                {
+                    printf("Your address list is empty\n" );
+                    return(0);
+                }
+                printf("Enter address choice: ");
+                int i;
+                scanf(" %d",&i);
+                while (i>top)
+                {
+                    printf("Bad input. Try again :");
+                    scanf(" %d",&i);
+                }
+                strcpy(ADD,t.add[i-1]);
+                fclose(file1);
+                return 1;
+		    }
+	    }   
+	}	
+    fclose(file1);
+    printf("UID not found\n");
+    return 0;
+}
+
+
+
+
+
+void listAll()
+{
+    struct people p;
+    FILE *fptr;
+    if ((fptr = fopen("people","rb")) == NULL)
+    {
+    printf("Error! opening file\n");
+    return;
+    }
+    while (fread(&p, sizeof(p), 1, fptr)==1)
+    {
+        printf("%ld - %s - %s - %s -%s - %s\n",p.UID,p.add[0],p.add[1],p.add[2],p.add[3],p.add[4]);
+    }
+    fclose(fptr);
+}
+
+
+
+void addressManager(long UID)
+{
+	while(1)
+	{
+		printf("Press 1 to add address\n2 to delete address record\n3to exit");
+		int c=0;
+		scanf(" %d",&c);
+		if(c==1)
+		{
+			addAddress(UID);
+		}
+		else if(c==2)
+		{
+			deleteAddress(UID);
+		}
+		else if(c==3)
+		{
+			return;
+		}
+		else
+		{
+			printf("Bad input. Try again.\n");
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

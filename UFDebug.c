@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include "userFunctions.h"
+#include "OrderFunctions.h"
 
 
 void main()
 {
-  deleteAddress(10000);
-  listAll();
+  addressManager(10000);
 
 }
