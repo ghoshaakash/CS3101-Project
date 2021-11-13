@@ -34,7 +34,7 @@ int AuthUser(long int UID)//searches for uid and checks password. returns 1 if a
             scanf(" %[^\n]",password);
             if(strcmp(password, i.password)==0)
             {
-                printf("Hello %s .Your Authentication is successful. Press any key to continue.\n",i.name);
+                printf("Hello %s .\nYour Authentication is successful.\nPress any key to continue.\n",i.name);
                 getch();
 
                 if(strcmp(i.role,"Admin")==0)
@@ -153,14 +153,14 @@ int addAddress(long UID)// adds address entry to user record
     	{
             flag=1;
             int top=0;
-            for(;top<=4;top++)
+            for(;top<=5;top++)
             {
                 if(t.add[top][0]=='\0')
                 {
                     break;
                 }
             }
-            if(top==4)
+            if(top==5)
             {
                 printf("You have used all 5 address slots. Please deltele some entries and try again\n");
             }
@@ -206,7 +206,7 @@ int deleteAddress(long UID)//delete address record
     	{
             flag=1;
             int top=0;
-            for(;top<=4;top++)
+            for(;top<=5;top++)
             {
                 if(t.add[top][0]=='\0')
                 {
@@ -240,6 +240,7 @@ int deleteAddress(long UID)//delete address record
 
 
     		fwrite(&t, sizeof(struct people), 1, file2);
+            flag=2;
 		}
 		else
 		{
@@ -261,7 +262,7 @@ int deleteAddress(long UID)//delete address record
 }
 
 
-void getaddress(long UID,char ADD[100])//returns addrress
+int getaddress(long UID,char ADD[100])//returns addrress
 {
     struct people t;
 	FILE * file1= fopen("people", "rb");
@@ -309,7 +310,7 @@ void getaddress(long UID,char ADD[100])//returns addrress
 
 
 
-void listAll()
+void listAll(long UID)
 {
     struct people p;
     FILE *fptr;
@@ -320,7 +321,7 @@ void listAll()
     }
     while (fread(&p, sizeof(p), 1, fptr)==1)
     {
-        printf("%ld - %s - %s - %s -%s - %s\n",p.UID,p.add[0],p.add[1],p.add[2],p.add[3],p.add[4]);
+        printf("%s - %s - %s - %s - %s \n",p.add[0],p.add[1],p.add[2],p.add[3],p.add[4]);
     }
     fclose(fptr);
 }
