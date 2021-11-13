@@ -451,7 +451,7 @@ void addressManager(long UID)
 {
 	while(1)
 	{
-		printf("Press 1 to add address\n2 to delete address record\n3to exit");
+		printf("Press 1 to add address\n2 to delete address record\n3 To exit\n");
 		int c=0;
 		scanf(" %d",&c);
 		if(c==1)
@@ -564,6 +564,7 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 	}
 	printf("Enter address :");
 	char Add[1000]={'\0'};
+	addressManager(UID);
 	getaddress(UID,Add);
 	scanf(" %[^\n]",Add);
 	long OID=addOrderDelivery(slot);

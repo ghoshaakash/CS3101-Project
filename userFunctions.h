@@ -34,8 +34,7 @@ int AuthUser(long int UID)//searches for uid and checks password. returns 1 if a
             scanf(" %[^\n]",password);
             if(strcmp(password, i.password)==0)
             {
-                printf("Hello %s .Your Authentication is successful. Press any key to continue.\n",i.name);
-                getch();
+                printf("Hello %s .Your Authentication is successful.\n",i.name);
 
                 if(strcmp(i.role,"Admin")==0)
                 {

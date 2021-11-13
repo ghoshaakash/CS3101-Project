@@ -13,9 +13,8 @@ label://A pointer to return to the first page after the first choice or after lo
 //The first choice to create an account or to login to an existing account
     printf("Welcome to the *Insert a name* online shopping website \n");
     printf("1 if you want to create a new account \n2 if you want to login to your existing account \n0 to close the webiste \n");
-    printf("=============================================================\nEnter Your Choice:");
+    printf("=============================================================\nEnter Your Choice: ");
     scanf(" %d",&n);
-    printf("\e[1;1H\e[2J");
     if(n==1)
     {
         a=CreateUser();
@@ -122,10 +121,8 @@ label2://A pointer to return to the point when an admin is logged in and the dis
 label3://A pointer to return to the point when an user is logged in and the display page after logging in or before logging out
 //The second choice for the user
 			//printf("\n\n\n");
-            printf("Please enter 1 to open the set of commands to shop, 0 to logout from your account, 2 to edit address record\n");
+            printf("Please enter 1 to open the set of commands to shop, 0 to logout from your account\n");
             scanf(" %d",&b);
-            printf("\e[1;1H\e[2J");
-            //printf("\n\n\n");
             if(b==0)
             {
             	
@@ -139,10 +136,6 @@ label3://A pointer to return to the point when an user is logged in and the disp
                     goto label3;
                 }
             }
-            else if(b==2)
-            {
-                addressManager(U);
-            }
             else
             {
             	printf("Invalid input!!!");
@@ -155,7 +148,6 @@ label3://A pointer to return to the point when an user is logged in and the disp
 
 int main()
 {
-    printf("\e[1;1H\e[2J");
-
+    
     UI();
 }
