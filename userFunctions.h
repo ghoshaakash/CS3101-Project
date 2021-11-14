@@ -33,7 +33,7 @@ int AuthUser(long int UID)//searches for uid and checks password. returns 1 if a
             scanf(" %[^\n]",password);
             if(strcmp(password, i.password)==0)
             {
-                printf("Hello %s .Your Authentication is successful.\n",i.name);
+                //printf("Welcome %s, \nYour Authentication is successful.\n",i.name);
 
                 if(strcmp(i.role,"Admin")==0)
                 {
@@ -65,6 +65,7 @@ int AuthUser(long int UID)//searches for uid and checks password. returns 1 if a
 int CreateUser()//creates a user. returns 1 if successful 0 otherwise
 {   //calculating max number of user
     long x=0;
+    int flag=1;
     struct people p={.name={'\0'}, .role={'\0'},.UID=0,.password={'\0'}};
     FILE *fptr;
     fptr=fopen("people","ab");
@@ -95,6 +96,7 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
         if(AuthUser(UID)==1)
         {
             strcpy(p.role,"Admin");
+            flag=0;
         }
         else
         {
@@ -103,10 +105,12 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
             return 0;
         }
     }
+    if(flag==1)
     strcpy(p.role,"User");
+    
     fwrite(&p, sizeof(p), 1, fptr);
     fclose(fptr);
-    printf("Hello %s. You have been succesfully registered with UID %ld.\n",p.name,p.UID);
+    printf("Hello %s,You have been succesfully registered with UID %ld.\n",p.name,p.UID);
     return 1;
 }
 

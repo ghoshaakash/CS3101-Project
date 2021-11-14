@@ -223,7 +223,7 @@ void LogOrderPickUp(long OID,long UID, char Det[1000])//Appends pickup order to 
 
 
 
-long addOrderDelivery(int slot)//Incements the slot in last order where order was placed and returns orderID
+long addOrderDelivery(int slot)//Increments the slot in last order where order was placed and returns orderID
 {
 	FILE* fptr = fopen("LatestScheduler.ord","rb+");
 	struct scheduler s;
@@ -279,7 +279,7 @@ int addAddress(long UID)// adds address entry to user record
                     break;
                 }
             }
-            if(top==4)
+            if(top==5)
             {
                 printf("You have used all 5 address slots. Please deltele some entries and try again\n");
             }
@@ -303,7 +303,6 @@ int addAddress(long UID)// adds address entry to user record
     
     remove("people");
     rename("lol","people");
-    printf("renamed");
 	}	
     if(flag==0)
     {
@@ -372,7 +371,6 @@ int deleteAddress(long UID)//delete address record
     
     remove("people");
     rename("lol","people");
-    printf("renamed");
 	}	
     if(flag==0)
     {
@@ -385,6 +383,7 @@ int deleteAddress(long UID)//delete address record
 int getaddress(long UID,char ADD[100])//returns addrress
 {
     struct people t;
+	int i;
 	FILE * file1= fopen("people", "rb");
 	if(file1 != NULL) 
 	{
@@ -400,15 +399,15 @@ int getaddress(long UID,char ADD[100])//returns addrress
                     {
                         break;
                     }
-                    printf("%d. %s",top+1,t.add[top]);
+					printf("%d. %s\n",top+1,t.add[top]);
                 }   
                 if(top==0)
                 {
-                    printf("Your address list is empty\n" );
+                    printf("Your address list is empty\n");
+                    fclose(file1);
                     return(0);
                 }
-                printf("Enter address choice: ");
-                int i;
+                printf("Enter address choice: \n");
                 scanf(" %d",&i);
                 while (i>top)
                 {
@@ -430,7 +429,7 @@ int getaddress(long UID,char ADD[100])//returns addrress
 
 
 
-void listAll()
+void listAll(long UID)
 {
     struct people p;
     FILE *fptr;
@@ -441,44 +440,17 @@ void listAll()
     }
     while (fread(&p, sizeof(p), 1, fptr)==1)
     {
-        printf("%ld - %s - %s - %s -%s - %s\n",p.UID,p.add[0],p.add[1],p.add[2],p.add[3],p.add[4]);
+		if(p.UID==UID)
+		{
+			printf("1. %s \n2. %s \n3. %s \n4. %s \n5. %s\n",p.add[0],p.add[1],p.add[2],p.add[3],p.add[4]);
+		}
     }
     fclose(fptr);
 }
 
 
-
-void addressManager(long UID)
-{
-	while(1)
-	{
-		printf("Press 1 to add address\n2 to delete address record\n3 To exit\n");
-		int c=0;
-		scanf(" %d",&c);
-		if(c==1)
-		{
-			addAddress(UID);
-		}
-		else if(c==2)
-		{
-			deleteAddress(UID);
-		}
-		else if(c==3)
-		{
-			return;
-		}
-		else
-		{
-			printf("Bad input. Try again.\n");
-		}
-
-	}
-}
-
-
 long AssignSlots(long UID, float price,char OrderDet[1000])//Assigns slot and logs order, returns ORDER ID
 {
-	clrscr();
 	int PickUpFlag;
 	printf("Enter 1 for pickup and 2 for delivery option: ");
 	scanf(" %d",&PickUpFlag);
@@ -504,7 +476,7 @@ long AssignSlots(long UID, float price,char OrderDet[1000])//Assigns slot and lo
 	int flag=1;
 	int AvailableSlots[Slots]={0};
 	MakeSlot(AvailableSlots,&d,&m,&y);
-	printf("%s","Enter Desired Slot :");
+	printf("%s","\n\nSlot 1 is from 9 to 10 am. Slot 2 is from 10 to 11 am. Slot 3 is from 11am to 12 noon. Slot 4 is from 1 to 2 pm. Slot 4 is from 2 to 3 pm. Slot 5 is from 3 to 4 pm. Enter Desired Slot : \n");
 	int slot;
 	while(flag)
 	{
@@ -514,13 +486,21 @@ long AssignSlots(long UID, float price,char OrderDet[1000])//Assigns slot and lo
 			flag=0;
 			break;
 		}
-		printf("Chosen slot is full/Bad input. Please input valid slot number again:");
+		printf("Chosen slot is full/Bad input. Please input valid slot number again:\n\n");
 	}
-	printf("Enter address :");
 	char Add[1000]={'\0'};
-	addressManager(UID);
-	getaddress(UID,Add);
-	scanf(" %[^\n]",Add);
+	printf("\n\nAddresses: \n");
+	int flag1=getaddress(UID,Add);
+	
+	if(flag1==0)
+	{
+		addAddress(UID);
+		
+		printf("\n\nYour Address list :\n");
+		getaddress(UID,Add);
+	}
+	
+	
 	long OID=addOrderDelivery(slot);
 	printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
 	printf("----------------------------------------------------------------------------------------------------------");

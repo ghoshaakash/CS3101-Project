@@ -39,8 +39,11 @@ returns : None
 */
 void view_items()
 {
+	system("cls");
 	struct item t;
 	int i=0;
+	
+	printf("ITEMS :\n\n");
 	//printf("--------------------------------------------------- \n");
 	printf("%-14s%-50s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
 	FILE * file= fopen("inventory", "rb");
@@ -352,6 +355,8 @@ takes in a string and prints only those items on the screen whose name have the 
 */
 void view_items_by_string(char *string)
 {
+	system("cls");
+	printf("ITEMS :\n\n");
 	char new_string[100]="\0";
 	printf("%-14s%-50s%-15s%-10s%-2s\n\n","SERIAL No.","NAME","UID","QUANTITY","PRICE (Rs)");
 	
