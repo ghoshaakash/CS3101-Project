@@ -281,8 +281,8 @@ int Cart(long PeopleUID)
 			default: printf("Invalid operation!\n");
 					printf("\n\n");
 					system("pause");
-					 n=1;
-					 break;
+					n=1;
+					continue;
 		}
 	}
 

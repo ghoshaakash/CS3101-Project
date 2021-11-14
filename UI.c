@@ -11,7 +11,7 @@ label://A pointer to return to the first page after the first choice or after lo
 //The first choice to create an account or to login to an existing account
 	system("cls");
     printf("Welcome to the DreamCart official shopping website \n");
-    printf("1 if you want to create a new account \n2 if you want to login to your existing account \n0 to close the webiste \n");
+    printf("1 if you want to create a new account \n2 if you want to login to your existing account \n0 to close the website \n");
     printf("=============================================================\nEnter Your Choice: \n");
     scanf(" %d",&n);
     system("cls");
