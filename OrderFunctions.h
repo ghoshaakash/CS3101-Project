@@ -133,6 +133,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 			}
 			
 			printf("\n");
+			fclose(fptr);
 			return;
 		}    
 
