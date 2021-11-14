@@ -276,7 +276,7 @@ int Cart(long PeopleUID)
 						}
 						view_items_by_string(searchPhrase);
 						printf("\n\n");
-						system("pause");
+						//system("pause");
 						break;
 			default: printf("Invalid operation!\n");
 					printf("\n\n");

@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include "inventoryFunctions.h"
+#include "userFunctions.h"
 
 
 void main()
 {
+	Initialize();
 }

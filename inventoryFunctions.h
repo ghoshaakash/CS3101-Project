@@ -57,7 +57,7 @@ void view_items()
     		fclose(file);
 	}	
 	//printf("--------------------------------------------------- \n\n");
-	
+	system("pause");
 }
 
 void add_UID(struct item *t)
@@ -383,4 +383,5 @@ void view_items_by_string(char *string)
     	
     	fclose(file);
 	}	
+	system("pause");
 }

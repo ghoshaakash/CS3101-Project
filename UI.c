@@ -60,6 +60,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
             	printf("Enter item name: \n");
             	scanf(" %[^\n]",name);
                 add_item(name);
+                system("pause");
                 goto label2;
             }
             else if(b==3)
@@ -68,6 +69,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 scanf(" %s",&c);
                 int q=get_quantity(c);
                 printf("The quantity of the item having UID %s in the inventory is %d \n", c, q);
+                system("pause");
                 goto label2;
             }
             else if(b==4)
@@ -77,6 +79,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 printf("Enter the quantity of the item to be changed to in the inventory \n");
                 scanf(" %d",&d);
                 edit_item_quantity(c,d);
+                system("pause");
                 goto label2;
             }
             else if(b==5)
@@ -84,6 +87,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 printf("Enter the UID of the item which is to be deleted from the inventory: \n");
                 scanf(" %s",&c);
                 delete_item(c);
+                system("pause");
                 goto label2;
             }
             else if(b==6)
@@ -99,6 +103,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 {
                     printf("The item is not present in the inventory \n");
                 }
+                system("pause");
                 goto label2;
             }
             else if(b==0)
@@ -108,6 +113,7 @@ label2://A pointer to return to the point when an admin is logged in and the dis
             else
             {
                 printf("You have typed in an input which has no function associated with it \n");
+                system("pause");
                 goto label2;
             }
         }
