@@ -207,17 +207,17 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 
 
 
-void LogOrderDelivery(long OID,long UID,int d,int m,int y,int slot,float Price, char ADD[1000])//Appends log order to CSV file
+void LogOrderDelivery(long OID,long UID,int d,int m,int y,int slot,float Price, char ADD[1000], char Det[1000])//Appends log order to CSV file
 {
-	FILE *fptr = fopen("Log.csv","a");
-	fprintf(fptr,"%ld,2,%ld,%d,%d,%d,%d,%f,%s\n",OID,UID,d,m,y,slot,Price,ADD);
+	FILE *fptr = fopen("Delivery.csv","a");
+	fprintf(fptr,"%ld,2,%ld,%d,%d,%d,%d,%f,%s,%s\n",OID,UID,d,m,y,slot,Price,ADD,Det);
 	fclose(fptr);
 }
 
-void LogOrderPickUp(long OID,long UID)//Appends pickup order to CSV file
+void LogOrderPickUp(long OID,long UID, char Det[1000])//Appends pickup order to CSV file
 {
-	FILE *fptr = fopen("Log.csv","a");
-	fprintf(fptr,"%ld,%ld,1\n",OID,UID);
+	FILE *fptr = fopen("PickUp.csv","a");
+	fprintf(fptr,"%ld,%ld,%s\n",OID,UID,Det);
 	fclose(fptr);
 }
 
@@ -449,54 +449,7 @@ void listAll(long UID)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-long AssignSlots(long UID, float price)//Assigns slot and logs order, returns ORDER ID
+long AssignSlots(long UID, float price,char OrderDet[1000])//Assigns slot and logs order, returns ORDER ID
 {
 	int PickUpFlag;
 	printf("Enter 1 for pickup and 2 for delivery option: ");
@@ -506,8 +459,8 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 		if(PickUpFlag==1)
 		{
 			long OID=addOrderPickup();
-			LogOrderDelivery(OID,UID,0,0,0,0,price,"PICKUP");
-			printf("\n\n\nYour order has been placed with order ID %ld. Press any key to return to previous menu.\n",OID);
+			LogOrderPickUp(OID,UID,OrderDet);
+			printf("Your order has been placed with order ID %ld. Press any key to return to previous menu.\n",OID);
 			printf("-----------------------------------------------------------------------------------\n");
 			getchar();
 			return OID;
@@ -523,7 +476,7 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 	int flag=1;
 	int AvailableSlots[Slots]={0};
 	MakeSlot(AvailableSlots,&d,&m,&y);
-	printf("%s","\n\nEnter Desired Slot : \n");
+	printf("%s","\n\nSlot 1 is from 9 to 10 am. Slot 2 is from 10 to 11 am. Slot 3 is from 11am to 12 noon. Slot 4 is from 1 to 2 pm. Slot 4 is from 2 to 3 pm. Slot 5 is from 3 to 4 pm. Enter Desired Slot : \n");
 	int slot;
 	while(flag)
 	{
@@ -549,9 +502,9 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 	
 	
 	long OID=addOrderDelivery(slot);
-	printf("\n\nOrder Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
-	printf("----------------------------------------------------------------------------------------------------------\n");
-	LogOrderDelivery(OID,UID,d,m,y,slot,price,Add);
+	printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
+	printf("----------------------------------------------------------------------------------------------------------");
+	LogOrderDelivery(OID,UID,d,m,y,slot,price,Add,OrderDet);
 }
 
 

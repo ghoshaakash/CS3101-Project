@@ -177,6 +177,7 @@ Prints bill and resets both top variables to -1. Takes string array, int array a
 */
 void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
 {
+	char str[1000]={'\0'};
 	system("cls");
 	float total=0,amount;
 	int i;
@@ -205,6 +206,13 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 			total+=amount;
 
 			printf("%-50s %-20s %-20.2f %-11d %.2f\n",name,UID,get_price(UID),quantity,amount);
+
+			char buff[1000];
+			strcpy(buff,str);
+			sprintf(str, " ( %s , %d ) ", UID,quantity);
+
+
+
 		}
 		printf("===================================================================================================================\n");
 		printf("\nTOTAL = Rs. %.2f/-\n\n\n\n",total);
