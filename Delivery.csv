@@ -1,5 +1,5 @@
-Order no,UID,Type,Day,Month,Year,Slot,Price,Address,
+Order no,Type,UID,Day,Month,Year,Slot,Price,Address,
 10001,2,10000,15,11,2021,4,383.5,Chakdaha, ( ITM10000122 - 2 ) 
 10002,2,10000,15,11,2021,1,383.5,Chakdaha, ( ITM10000122 - 2 ) 
 10007,2,10000,15,11,2021,4,487.5,Chakdaha, ( ITM10000212 - 2 ) 
-10008,2,10000,15,11,2021,4,331.500000,Durgapur, ( ITM10000312 - 2 ) 
+10008,2,10000,15,11,2021,4,331.5,Durgapur, ( ITM10000312 - 2 ) 
