@@ -119,6 +119,7 @@ int CreateUser()//creates a user. returns 1 if successful 0 otherwise
 
 void Initialize()//To inititalzie first Admin
 {
+    system("cls");
     long x=0;
     struct people p={.name={'\0'}, .role={'\0'},.UID=0,.password={'\0'}};
     FILE *fptr;

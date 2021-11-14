@@ -76,7 +76,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 	int i=fread(&s, sizeof(s), 1, fptr);
 	if(i==1)
 	{
-		char str[50]="Free Slots are:";
+		char str[50]="Free Slots are: \n";
 		printf("%s",str);
 		SYSTEMTIME t;
 		GetLocalTime(&t);
@@ -128,7 +128,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 			for(int i=0;i<Slots;i++)
 			{
 				AvailableSlots[i]=1;
-				printf(" %d", i+1);
+				printf(" %d : (%d PM - %d PM) \n", i+1, i+1, i+2);
 				NewRecordFlag=0;
 			}
 			
@@ -145,7 +145,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 				if(s.slot[i]<DeliveryPeople)
 				{
 					AvailableSlots[i]=1;
-					printf(" %d", i+1);
+					printf(" %d : (%d PM - %d PM) \n", i+1, i+1, i+2);
 					NewRecordFlag=0;
 				}
 			}
@@ -162,7 +162,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 			for(int i=0;i<Slots;i++)
 			{
 				AvailableSlots[i]=1;
-				printf(" %d", i+1);
+				printf(" %d : (%d PM - %d PM) \n", i+1, i+1, i+2);
 				NewRecordFlag=0;
 			}
 		}    
@@ -175,7 +175,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 		SYSTEMTIME t;
 		GetLocalTime(&t);
 		fseek(fptr,0,SEEK_SET);
-		char str[50]="Free Slots are:";
+		char str[50]="Free Slots are: \n";
 		printf("%s",str);
 		s.y=t.wYear;
 		s.m=t.wMonth;
@@ -190,7 +190,7 @@ void MakeSlot(int AvailableSlots[],int *d,int *m, int *y)
 		for(int i=0;i<Slots;i++)
 		{
 			AvailableSlots[i]=1;
-			printf(" %d", i+1);
+			printf(" %d : (%d PM - %d PM) \n", i+1, i+1, i+2);
 			NewRecordFlag=0;
 		}
 		printf("\n");
@@ -476,7 +476,7 @@ long AssignSlots(long UID, float price,char OrderDet[1000])//Assigns slot and lo
 	int flag=1;
 	int AvailableSlots[Slots]={0};
 	MakeSlot(AvailableSlots,&d,&m,&y);
-	printf("%s","\n\nSlot 1 is from 9 to 10 am. Slot 2 is from 10 to 11 am. Slot 3 is from 11am to 12 noon. Slot 4 is from 1 to 2 pm. Slot 4 is from 2 to 3 pm. Slot 5 is from 3 to 4 pm. Enter Desired Slot : \n");
+	//printf("%s","\n\nSlot 1 is from 9 to 10 am. Slot 2 is from 10 to 11 am. Slot 3 is from 11am to 12 noon. Slot 4 is from 1 to 2 pm. Slot 4 is from 2 to 3 pm. Slot 5 is from 3 to 4 pm. Enter Desired Slot : \n");
 	int slot;
 	while(flag)
 	{

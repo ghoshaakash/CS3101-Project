@@ -108,8 +108,10 @@ void add_to_cart(char item_arr[50][20], int quantity_arr[50], int* p, int* q)
 	if(give_order(UID,quantity)==-1)
 		printf("The required quantity is not in stock.\n");
 	else
+	{
 		push(item_arr,quantity_arr,p,q,UID,quantity);
 		printf("Your cart has been succesfully updated. \n");
+	}
 }
 
 /*
@@ -138,11 +140,11 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 	}
 	else
 	{
-		int quantity;
+		/*int quantity;
 		printf("Enter new quantity (enter 0 if item is to be removed):\n");
-		scanf(" %d",&quantity);
+		scanf(" %d",&quantity);*/
 
-		if(quantity)
+		/*if(quantity)
 		{
 			int temp;
 			temp=quantity_arr[key];
@@ -150,25 +152,22 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 			give_order(UID,-(temp-quantity));
 			printf("Your cart has been succesfully updated \n");
 			
-		}
-		else
-		{
-			char temp_1[20];
-			strcpy(temp_1,item_arr[*p]);
-			strcpy(item_arr[*p],item_arr[key]);
-			strcpy(item_arr[key],temp_1);
+		}*/
+		char temp_1[20];
+		strcpy(temp_1,item_arr[*p]);
+		strcpy(item_arr[*p],item_arr[key]);
+		strcpy(item_arr[key],temp_1);
 
-			int temp_2;
-			temp_2=quantity_arr[*q];
-			quantity_arr[*q]=quantity_arr[key];
-			quantity_arr[key]=temp_2;
+		int temp_2;
+		temp_2=quantity_arr[*q];
+		quantity_arr[*q]=quantity_arr[key];
+		quantity_arr[key]=temp_2;
 
-			give_order(UID,-quantity_arr[*q]);
-			pop_string(item_arr,p,top_string);
-			pop_int(quantity_arr,q);
-			printf("Your cart has been succesfully updated \n");
+		give_order(UID,-quantity_arr[*q]);
+		pop_string(item_arr,p,top_string);
+		pop_int(quantity_arr,q);
+		printf("Your cart has been succesfully updated \n");
 			
-		}
 	}
 }
 
@@ -209,14 +208,14 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 
 			char buff[1000];
 			strcpy(buff,str);
-			sprintf(str, " ( %s , %d ) ", UID,quantity);
+			sprintf(str, " ( %s - %d ) ", UID,quantity);
 
 
 
 		}
 		printf("===================================================================================================================\n");
 		printf("\nTOTAL = Rs. %.2f/-\n\n\n\n",total);
-		int OrderID=AssignSlots(PeopleUID,total);
+		int OrderID=AssignSlots(PeopleUID,total,str);
 	}
 	else
 		printf("Invalid order!\n");

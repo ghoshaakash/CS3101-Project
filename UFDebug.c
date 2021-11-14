@@ -1,9 +1,7 @@
 #include <stdio.h>
-#include "OrderFunctions.h"
+#include "inventoryFunctions.h"
 
 
 void main()
 {
-  addressManager(10000);
-
 }
