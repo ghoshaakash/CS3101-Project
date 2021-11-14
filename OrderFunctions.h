@@ -223,7 +223,7 @@ void LogOrderPickUp(long OID,long UID)//Appends pickup order to CSV file
 
 
 
-long addOrderDelivery(int slot)//Incements the slot in last order where order was placed and returns orderID
+long addOrderDelivery(int slot)//Increments the slot in last order where order was placed and returns orderID
 {
 	FILE* fptr = fopen("LatestScheduler.ord","rb+");
 	struct scheduler s;
@@ -404,6 +404,7 @@ int getaddress(long UID,char ADD[100])//returns addrress
                 if(top==0)
                 {
                     printf("Your address list is empty\n");
+                    fclose(file1);
                     return(0);
                 }
                 printf("Enter address choice: \n");
@@ -505,7 +506,7 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 		if(PickUpFlag==1)
 		{
 			long OID=addOrderPickup();
-			LogOrderPickUp(OID,UID);
+			LogOrderDelivery(OID,UID,0,0,0,0,price,"PICKUP");
 			printf("Your order has been placed with order ID %ld. Press any key to return to previous menu.\n",OID);
 			printf("-----------------------------------------------------------------------------------\n");
 			getchar();
@@ -536,7 +537,17 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 	}
 	char Add[1000]={'\0'};
 	printf("Addresses: \n");
-	getaddress(UID,Add);
+	int flag1=getaddress(UID,Add);
+	
+	if(flag1==0)
+	{
+		addAddress(UID);
+		
+		printf("Your Address list :\n");
+		getaddress(UID,Add);
+	}
+	
+	
 	long OID=addOrderDelivery(slot);
 	printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
 	printf("----------------------------------------------------------------------------------------------------------\n");

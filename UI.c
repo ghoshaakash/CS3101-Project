@@ -37,6 +37,8 @@ label://A pointer to return to the first page after the first choice or after lo
         }
         else if(a==1)
         {
+        	printf("Welcome, \nYour Authentication is successful.\n\n");
+        	
 label2://A pointer to return to the point when an admin is logged in and the display page after logging in or before logging out
 //The second choice for the admin
             printf("1 to check the full inventory \n2 to add a new item to the inventory \n3 to check the quantity of a particular item in the inventory \n4 to change the quantity of an existing item in the inventory \n5 to delete an item from the inventory \n6 to check if an item is present in the inventory \n0 to logout from your account \n");
@@ -106,6 +108,8 @@ label2://A pointer to return to the point when an admin is logged in and the dis
         }
         else if(a==2)
         {
+        	printf("Welcome, \nYour Authentication is successful.\n\n");
+        	
 label3://A pointer to return to the point when an user is logged in and the display page after logging in or before logging out
 //The second choice for the user
             printf("Please enter 1 to continue to the shopping menu \nPlease enter 2 to check your account credentials and edit them \nPlease enter 0 to logout from your account\n");
@@ -165,5 +169,6 @@ label4://A pointer to return to the main page where the user credentials are dis
 }
 int main()
 {
+	//Initialize();
     UI();
 }
