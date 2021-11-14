@@ -36,6 +36,7 @@ label://A pointer to return to the first page after the first choice or after lo
         if(a==0)
         {
             printf("Please try again \n");
+            system("pause");
             goto label;
         }
         else if(a==1)

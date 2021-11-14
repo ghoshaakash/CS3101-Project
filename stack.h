@@ -119,6 +119,7 @@ Takes string array, int array and pointers to their respective top variables, an
 void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q, char top_string[20])
 {
 	char UID[20];
+	int iq=get_quantity(UID);
 	printf("Enter UID of item to be removed:\n");
 	scanf(" %s",UID);
 	
@@ -140,13 +141,8 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 		int quantity;
 		printf("Enter new quantity (enter 0 if item is to be removed):\n");
 		scanf(" %d",&quantity);
-		if(quantity>quantity_arr[key])
-		{
-			printf("You have entered quantity ofitems greater than what is in your cart.\n");
-			
-		}
 
-		else if(quantity<=quantity_arr[key] && quantity>0)
+		if(quantity)
 		{
 			int temp;
 			temp=quantity_arr[key];
