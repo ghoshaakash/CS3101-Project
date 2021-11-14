@@ -507,7 +507,7 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 		{
 			long OID=addOrderPickup();
 			LogOrderDelivery(OID,UID,0,0,0,0,price,"PICKUP");
-			printf("Your order has been placed with order ID %ld. Press any key to return to previous menu.\n",OID);
+			printf("\n\n\nYour order has been placed with order ID %ld. Press any key to return to previous menu.\n",OID);
 			printf("-----------------------------------------------------------------------------------\n");
 			getchar();
 			return OID;
@@ -523,7 +523,7 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 	int flag=1;
 	int AvailableSlots[Slots]={0};
 	MakeSlot(AvailableSlots,&d,&m,&y);
-	printf("%s","Enter Desired Slot : \n");
+	printf("%s","\n\nEnter Desired Slot : \n");
 	int slot;
 	while(flag)
 	{
@@ -533,23 +533,23 @@ long AssignSlots(long UID, float price)//Assigns slot and logs order, returns OR
 			flag=0;
 			break;
 		}
-		printf("Chosen slot is full/Bad input. Please input valid slot number again:");
+		printf("Chosen slot is full/Bad input. Please input valid slot number again:\n\n");
 	}
 	char Add[1000]={'\0'};
-	printf("Addresses: \n");
+	printf("\n\nAddresses: \n");
 	int flag1=getaddress(UID,Add);
 	
 	if(flag1==0)
 	{
 		addAddress(UID);
 		
-		printf("Your Address list :\n");
+		printf("\n\nYour Address list :\n");
 		getaddress(UID,Add);
 	}
 	
 	
 	long OID=addOrderDelivery(slot);
-	printf("Order Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
+	printf("\n\nOrder Booked for %d/%d/%d ,slot no: %d priced at %.2f. Your order ID is %ld\nDelivery will be done at %s\n",d,m,y,slot,price,OID,Add);
 	printf("----------------------------------------------------------------------------------------------------------\n");
 	LogOrderDelivery(OID,UID,d,m,y,slot,price,Add);
 }

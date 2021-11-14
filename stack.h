@@ -71,6 +71,8 @@ Takes a string array and int array, and the 'top' variable (top itself, and not 
 */
 void display(char item_arr[50][20], int quantity_arr[50], int top)
 {
+	system("cls");
+	printf("CART :\n\n");
 	int i;
 
 	if(top==-1)
@@ -140,7 +142,8 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 		scanf(" %d",&quantity);
 		if(quantity>quantity_arr[key])
 		{
-			printf("You have entered quantity ofitems greater than what is in your cart. Please enter appropriate quantity \n");
+			printf("You have entered quantity ofitems greater than what is in your cart.\n");
+			
 		}
 
 		else if(quantity<=quantity_arr[key] && quantity>0)
@@ -150,6 +153,7 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 			quantity_arr[key]=quantity;
 			give_order(UID,-(temp-quantity));
 			printf("Your cart has been succesfully updated \n");
+			
 		}
 		else
 		{
@@ -167,6 +171,7 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 			pop_string(item_arr,p,top_string);
 			pop_int(quantity_arr,q);
 			printf("Your cart has been succesfully updated \n");
+			
 		}
 	}
 }
@@ -176,6 +181,7 @@ Prints bill and resets both top variables to -1. Takes string array, int array a
 */
 void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
 {
+	system("cls");
 	float total=0,amount;
 	int i;
 	for(i=*p;i>-1;i--)
@@ -205,7 +211,7 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 			printf("%-50s %-20s %-20.2f %-11d %.2f\n",name,UID,get_price(UID),quantity,amount);
 		}
 		printf("===================================================================================================================\n");
-		printf("TOTAL = Rs. %.2f/-\n",total);
+		printf("\nTOTAL = Rs. %.2f/-\n\n\n\n",total);
 		int OrderID=AssignSlots(PeopleUID,total);
 	}
 	else
@@ -227,6 +233,7 @@ int Cart(long PeopleUID)
 
 	while(n==0)
 	{
+		system("cls");
 		printf("Choose operation:\n");
 		printf("0 to go to the main menu \n1 to add an item to the cart \n2 to view cart \n3 to remove or update the quantity of an item from thecart\n4 to proceed to checkout\n5 to search items by string.\n");
 		printf("===========================================\n");
@@ -237,13 +244,21 @@ int Cart(long PeopleUID)
 			case 0:	n=1;
 					break;
 			case 1: add_to_cart(item_arr,quantity_arr,p,q);
+					printf("\n\n");
+					system("pause");
 					break;
 			case 2: display(item_arr,quantity_arr,*p);
+					printf("\n\n");
+					system("pause");
 					break;
 			case 3: remove_from_cart(item_arr,quantity_arr,p,q, top_string);
+					printf("\n\n");
+					system("pause");
 					break;
 			case 4: print_bill(PeopleUID,item_arr,quantity_arr,p,q, top_string);
 					n=1;
+					printf("\n\n");
+					system("pause");
 					break;
 			case 5: 
 						printf("Enter search phrase :\n");
@@ -257,8 +272,12 @@ int Cart(long PeopleUID)
 							}	
 						}
 						view_items_by_string(searchPhrase);
+						printf("\n\n");
+						system("pause");
 						break;
 			default: printf("Invalid operation!\n");
+					printf("\n\n");
+					system("pause");
 					 n=1;
 					 break;
 		}

@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include "stack.h"
+#include<windows.h>
 //The first page that will get displayed as soon as the program starts
 int UI()
 {
@@ -8,10 +9,12 @@ int UI()
     long U;
 label://A pointer to return to the first page after the first choice or after logging out from the account 
 //The first choice to create an account or to login to an existing account
-    printf("\n\n\n\n\nWelcome to the DreamCart official shopping website \n");
+	system("cls");
+    printf("Welcome to the DreamCart official shopping website \n");
     printf("1 if you want to create a new account \n2 if you want to login to your existing account \n0 to close the webiste \n");
     printf("=============================================================\nEnter Your Choice: \n");
     scanf(" %d",&n);
+    system("cls");
     if(n==1)
     {
         a=CreateUser();
@@ -37,13 +40,16 @@ label://A pointer to return to the first page after the first choice or after lo
         }
         else if(a==1)
         {
-        	printf("Welcome, \nYour Authentication is successful.\n\n");
         	
+        	printf("\n\nWelcome, \nYour Authentication is successful.\n");
+        	system("pause");
 label2://A pointer to return to the point when an admin is logged in and the display page after logging in or before logging out
 //The second choice for the admin
+			system("cls");
             printf("1 to check the full inventory \n2 to add a new item to the inventory \n3 to check the quantity of a particular item in the inventory \n4 to change the quantity of an existing item in the inventory \n5 to delete an item from the inventory \n6 to check if an item is present in the inventory \n0 to logout from your account \n");
             printf("===================================\nEnter Your Choice: \n");
             scanf(" %d",&b);
+            system("cls");
             if(b==1)
             {
                 view_items();
@@ -108,12 +114,15 @@ label2://A pointer to return to the point when an admin is logged in and the dis
         }
         else if(a==2)
         {
-        	printf("Welcome, \nYour Authentication is successful.\n\n");
+        	printf("\n\nWelcome, \nYour Authentication is successful.\n");
+        	system("pause");
         	
 label3://A pointer to return to the point when an user is logged in and the display page after logging in or before logging out
 //The second choice for the user
+			system("cls");
             printf("Please enter 1 to continue to the shopping menu \nPlease enter 2 to check your account credentials and edit them \nPlease enter 0 to logout from your account\n");
             scanf(" %d",&b);
+            system("cls");
             if(b==0)
             {
                 goto label;
@@ -130,6 +139,7 @@ label3://A pointer to return to the point when an user is logged in and the disp
             else if(b==2)
             {
 label4://A pointer to return to the main page where the user credentials are displayed
+				system("cls");
                 printf("Your UID is: %ld\n",U);
                 printf("Your Addresses are: \n");
                 listAll(U);
@@ -137,6 +147,7 @@ label4://A pointer to return to the main page where the user credentials are dis
                 printf("1 to Add an address \n2 to delete an address \n0 to return back to the main menu \n");
                 printf("===========================================\n");
                 scanf(" %d",&d);
+                system("cls");
                 if(d==1)
                 {
                     addAddress(U);
