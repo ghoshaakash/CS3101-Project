@@ -68,8 +68,11 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 printf("Enter the UID of the item whose quantity you want to check in the inventory: \n");
                 scanf(" %s",&c);
                 int q=get_quantity(c);
+                if(q>=0)
                 printf("The quantity of the item having UID %s in the inventory is %d \n", c, q);
-                system("pause");
+                else
+                printf("The item having UID %s is not present in the inventory\n",c);
+				system("pause");
                 goto label2;
             }
             else if(b==4)
@@ -78,15 +81,30 @@ label2://A pointer to return to the point when an admin is logged in and the dis
                 scanf(" %s",&c);
                 printf("Enter the quantity of the item to be changed to in the inventory \n");
                 scanf(" %d",&d);
-                edit_item_quantity(c,d);
-                system("pause");
+                if(get_quantity(c)>=0)
+                {	edit_item_quantity(c,d);
+                	printf("\nquantity of item with UID : %s edited\n",c);
+				}
+                else
+                {
+                	printf("The item having UID %s is not present in the inventory\n",c);
+				}
+				system("pause");
                 goto label2;
             }
             else if(b==5)
             {
                 printf("Enter the UID of the item which is to be deleted from the inventory: \n");
                 scanf(" %s",&c);
-                delete_item(c);
+                
+                if(get_quantity(c)>=0)
+                {	delete_item(c);
+                	printf("\nitem with UID : %s deleted from the inventory\n",c);
+				}
+                else
+                {
+                	printf("The item having UID %s is not present in the inventory\n",c);
+				}
                 system("pause");
                 goto label2;
             }
