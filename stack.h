@@ -71,6 +71,8 @@ Takes a string array and int array, and the 'top' variable (top itself, and not 
 */
 void display(char item_arr[50][20], int quantity_arr[50], int top)
 {
+	system("cls");
+	printf("CART :\n\n");
 	int i;
 
 	if(top==-1)
@@ -106,7 +108,10 @@ void add_to_cart(char item_arr[50][20], int quantity_arr[50], int* p, int* q)
 	if(give_order(UID,quantity)==-1)
 		printf("The required quantity is not in stock.\n");
 	else
+	{
 		push(item_arr,quantity_arr,p,q,UID,quantity);
+		printf("Your cart has been succesfully updated. \n");
+	}
 }
 
 /*
@@ -116,14 +121,11 @@ Takes string array, int array and pointers to their respective top variables, an
 void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q, char top_string[20])
 {
 	char UID[20];
+	int iq=get_quantity(UID);
 	printf("Enter UID of item to be removed:\n");
 	scanf(" %s",UID);
-
-	int quantity;
-	printf("Enter new quantity (enter 0 if item is to be removed):\n");
-	scanf(" %d",&quantity);
-
-	int key,i;
+	
+	int key=100,i;
 	for(i=*p;i>-1;i--)
 		{
 			if(!(strcmp(UID,item_arr[i])))
@@ -132,16 +134,25 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 				break;
 			}
 		}
-
-	if(quantity)
+	if(key==100)
 	{
-		int temp;
-		temp=quantity_arr[key];
-		quantity_arr[key]=quantity;
-		give_order(UID,-(temp-quantity));
+		printf("The UID you have entered does not match to any items in your cart. Please enter a valid UID \n");
 	}
 	else
 	{
+		/*int quantity;
+		printf("Enter new quantity (enter 0 if item is to be removed):\n");
+		scanf(" %d",&quantity);*/
+
+		/*if(quantity)
+		{
+			int temp;
+			temp=quantity_arr[key];
+			quantity_arr[key]=quantity;
+			give_order(UID,-(temp-quantity));
+			printf("Your cart has been succesfully updated \n");
+			
+		}*/
 		char temp_1[20];
 		strcpy(temp_1,item_arr[*p]);
 		strcpy(item_arr[*p],item_arr[key]);
@@ -155,6 +166,8 @@ void remove_from_cart(char item_arr[50][20], int quantity_arr[50],int* p, int* q
 		give_order(UID,-quantity_arr[*q]);
 		pop_string(item_arr,p,top_string);
 		pop_int(quantity_arr,q);
+		printf("Your cart has been succesfully updated \n");
+			
 	}
 }
 
@@ -163,6 +176,8 @@ Prints bill and resets both top variables to -1. Takes string array, int array a
 */
 void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int* p,int* q, char top_string[20])
 {
+	char str[1000]={'\0'};
+	system("cls");
 	float total=0,amount;
 	int i;
 	for(i=*p;i>-1;i--)
@@ -190,10 +205,17 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 			total+=amount;
 
 			printf("%-50s %-20s %-20.2f %-11d %.2f\n",name,UID,get_price(UID),quantity,amount);
+
+			char buff[1000];
+			strcpy(buff,str);
+			sprintf(str, "%s ( %s - %d ) ",buff,UID,quantity);
+
+
+
 		}
 		printf("===================================================================================================================\n");
-		printf("TOTAL = Rs. %.2f/-\n",total);
-		int OrderID=AssignSlots(PeopleUID,total);
+		printf("\nTOTAL = Rs. %.2f/-\n\n\n\n",total);
+		int OrderID=AssignSlots(PeopleUID,total,str);
 	}
 	else
 		printf("Invalid order!\n");
@@ -214,8 +236,9 @@ int Cart(long PeopleUID)
 
 	while(n==0)
 	{
+		system("cls");
 		printf("Choose operation:\n");
-		printf("0 to go to the previous set of commands \n1 to add an item to the cart \n2 to view cart \n3 to remove an item \n4 to proceed to checkout\n5 to search items by string.\n");
+		printf("0 to go to the main menu \n1 to add an item to the cart \n2 to view cart \n3 to remove an item from the cart\n4 to proceed to checkout\n5 to search items by string.\n");
 		printf("===========================================\n");
 		scanf(" %d",&key);
 
@@ -224,13 +247,21 @@ int Cart(long PeopleUID)
 			case 0:	n=1;
 					break;
 			case 1: add_to_cart(item_arr,quantity_arr,p,q);
+					printf("\n\n");
+					system("pause");
 					break;
 			case 2: display(item_arr,quantity_arr,*p);
+					printf("\n\n");
+					system("pause");
 					break;
 			case 3: remove_from_cart(item_arr,quantity_arr,p,q, top_string);
+					printf("\n\n");
+					system("pause");
 					break;
 			case 4: print_bill(PeopleUID,item_arr,quantity_arr,p,q, top_string);
 					n=1;
+					printf("\n\n");
+					system("pause");
 					break;
 			case 5: 
 						printf("Enter search phrase :\n");
@@ -244,10 +275,14 @@ int Cart(long PeopleUID)
 							}	
 						}
 						view_items_by_string(searchPhrase);
+						printf("\n\n");
+						//system("pause");
 						break;
 			default: printf("Invalid operation!\n");
-					 n=1;
-					 break;
+					printf("\n\n");
+					system("pause");
+					n=0;
+					continue;
 		}
 	}
 
