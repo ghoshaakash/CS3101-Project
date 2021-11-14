@@ -208,7 +208,7 @@ void print_bill(long PeopleUID,char item_arr[50][20], int quantity_arr[50], int*
 
 			char buff[1000];
 			strcpy(buff,str);
-			sprintf(str, " ( %s - %d ) ", UID,quantity);
+			sprintf(str, "%s ( %s - %d ) ",buff,UID,quantity);
 
 
 
@@ -238,7 +238,7 @@ int Cart(long PeopleUID)
 	{
 		system("cls");
 		printf("Choose operation:\n");
-		printf("0 to go to the main menu \n1 to add an item to the cart \n2 to view cart \n3 to remove or update the quantity of an item from thecart\n4 to proceed to checkout\n5 to search items by string.\n");
+		printf("0 to go to the main menu \n1 to add an item to the cart \n2 to view cart \n3 to remove an item from the cart\n4 to proceed to checkout\n5 to search items by string.\n");
 		printf("===========================================\n");
 		scanf(" %d",&key);
 
